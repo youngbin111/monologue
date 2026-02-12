@@ -5,7 +5,7 @@ from openai import OpenAI
 
 version = "v0.1"
 
-API_KEY = ""
+API_KEY = " "
 client = OpenAI(api_key=API_KEY)
 
 db_path = f"monologue_local/검색및추천/data/DB/{version}/chroma_db"
