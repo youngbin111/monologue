@@ -4,14 +4,14 @@ from rest_framework import status
 import sys
 import os
 
-# Add project root to sys.path to allow importing from 검색.search
+# Add project root to sys.path to allow importing from search.search
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Import local search module
 # Since the folder name is '검색' (Korean), we might need careful import or rename.
 # Assuming '검색' is a valid package name in Python 3.
 try:
-    from 검색.search import get_recommendations
+    from search.search import get_recommendations
 except ImportError:
     # Fallback or error handling if import fails
     get_recommendations = None
