@@ -1,0 +1,410 @@
+/* SignUpProcess 우측 섹션 내부에 맞춤 */
+.my-dokbaek-sub-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-y: auto; /* 내용이 길어질 경우 내부 스크롤 */
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+/* 메인 컨텐츠 영역 */
+.main {
+  width: 100%;
+  max-width: 900px;
+}
+
+.topHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 4px 20px;
+}
+
+.pageHint {
+  color: rgba(0, 0, 0, 0.32);
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.rightHint {
+  color: rgba(0, 0, 0, 0.65);
+  font-weight: 700;
+  font-size: 12px;
+}
+
+/* 중앙 패널 */
+.panel {
+  background: #f7f6f2;
+  border-radius: 15px;
+  padding: 35px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.panelHeader {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.panelTitle {
+  margin: 0;
+  font-size: 36px;
+  letter-spacing: -0.8px;
+  color: #4f6b57;
+  font-weight: 800;
+}
+
+.panelSub {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.contentRow {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 35px;
+  align-items: start;
+  margin-top: 20px;
+}
+
+/* 표지 영역 */
+.coverCol {
+  display: flex;
+  justify-content: center;
+}
+
+.coverFrame {
+  width: 220px;
+  height: 280px;
+  border-radius: 12px;
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.06);
+  position: relative;
+  overflow: hidden;
+}
+
+.coverImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.coverPlaceholder {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-content: center;
+  gap: 12px;
+  background: #fbfbf8;
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.phIcon {
+  font-size: 40px;
+  text-align: center;
+}
+
+.phText {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.zoomBtn {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: #fff;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  transition: transform 0.2s;
+}
+
+.zoomBtn:hover {
+  transform: scale(1.05);
+}
+
+/* 오른쪽 정보 컬럼 */
+.infoCol {
+  padding-top: 5px;
+}
+
+.todayBookTitle {
+  font-size: 18px;
+  font-weight: 800;
+  color: #333;
+}
+
+.todayBookValue {
+  color: #4f6b57;
+  font-weight: 900;
+  margin-left: 5px;
+}
+
+.privacyRow {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}
+
+.pillBtn {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  background: #fff;
+  border-radius: 20px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 700;
+  transition: all 0.2s;
+}
+
+.pillBtn:hover {
+  background: #4f6b57;
+  color: #fff;
+  border-color: #4f6b57;
+}
+
+.pillBtn.active {
+  background: #4f6b57;
+  color: #fff;
+  border-color: #4f6b57;
+}
+
+.field {
+  margin-top: 20px;
+}
+
+.fieldLabel {
+  font-size: 13px;
+  font-weight: 800;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.helperText {
+  margin-top: 8px;
+  font-size: 11px;
+  color: #999;
+}
+
+/* 별점 */
+.stars {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.star {
+  all: unset;
+  cursor: pointer;
+  font-size: 22px;
+  color: #ddd;
+  transition: color 0.2s;
+}
+
+.star.on {
+  color: #4f6b57;
+}
+
+.starsValue {
+  margin-left: 10px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #888;
+}
+
+/* 해시태그 한줄 입력 */
+.hashInput {
+  width: 100%;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  padding: 0 15px;
+  font-size: 13px;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.hashInput:focus {
+  border-color: #4f6b57;
+}
+
+/* 독서록 박스 */
+.reviewBox {
+  margin-top: 25px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  padding: 20px;
+}
+
+.reviewTextarea {
+  width: 100%;
+  height: 250px;
+  resize: none;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  line-height: 1.7;
+  color: #444;
+  background: transparent;
+}
+
+.reviewMetaRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 15px;
+  border-top: 1px dashed #eee;
+}
+
+.counter {
+  font-size: 12px;
+  color: #aaa;
+  font-weight: 700;
+}
+
+.finishBtn {
+  border: 1px solid #ddd;
+  background: #efefea;
+  border-radius: 25px;
+  padding: 10px 25px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 900;
+  transition: all 0.2s;
+}
+
+.finishBtn:hover:not(.disabled) {
+  background: #4f6b57;
+  color: #fff;
+  border-color: #4f6b57;
+}
+
+.finishBtn.disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* MODAL 스타일은 기존과 동일하게 유지하거나 
+   독립적으로 작동하므로 그대로 두셔도 무방합니다. */
+
+/* 검색 모달 Overlay */
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: grid;
+  place-items: center;
+  z-index: 9999;
+}
+
+.modal {
+  width: 500px;
+  background: #fff;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+}
+
+.modalError {
+  margin: 0 0 10px;
+  padding: 10px 12px;
+  border-radius: 8px;
+  background: #f8ecec;
+  color: #7f2f2f;
+  font-size: 12px;
+}
+
+@media (max-width: 1024px) {
+  .contentRow {
+    grid-template-columns: 210px 1fr;
+    gap: 24px;
+  }
+
+  .panel {
+    padding: 28px;
+  }
+}
+
+@media (max-width: 900px) {
+  .my-dokbaek-sub-wrapper {
+    padding: 20px 10px;
+  }
+
+  .topHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .panel {
+    padding: 22px;
+  }
+
+  .panelTitle {
+    font-size: 30px;
+  }
+
+  .contentRow {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .coverFrame {
+    width: 200px;
+    height: 255px;
+  }
+
+  .reviewTextarea {
+    height: 200px;
+  }
+
+  .modal {
+    width: calc(100% - 24px);
+    max-width: 500px;
+  }
+}
+
+@media (max-width: 480px) {
+  .panel {
+    padding: 18px;
+  }
+
+  .panelTitle {
+    font-size: 26px;
+  }
+
+  .panelSub {
+    font-size: 12px;
+  }
+
+  .coverFrame {
+    width: 180px;
+    height: 235px;
+  }
+
+  .reviewMetaRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .finishBtn {
+    width: 100%;
+    text-align: center;
+  }
+}

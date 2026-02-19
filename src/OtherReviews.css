@@ -1,0 +1,212 @@
+/* OtherReviews.css */
+
+/* 전체 컨테이너: SignUpProcess의 오른쪽 섹션에 꽉 차도록 설정 */
+.or-container-inline {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background-color: #fff;
+  padding: 40px;
+  box-sizing: border-box;
+}
+
+/* 메인 콘텐츠 영역 */
+.orMain {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* 헤더 영역 */
+.orHeader {
+  margin-bottom: 40px;
+}
+
+.orTitleWrap {
+  margin-bottom: 30px;
+}
+
+.orTitle {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.orLine {
+  width: 60px;
+  height: 4px;
+  background-color: #4f6f52; /* 메인 테마색 */
+}
+
+.or-state {
+  margin-bottom: 16px;
+  color: #6f6f6f;
+  font-size: 14px;
+}
+
+.or-error {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #f8ecec;
+  color: #7f2f2f;
+  font-size: 13px;
+}
+
+/* 검색바 영역 */
+.orSearchWrap {
+  position: relative;
+  max-width: 500px;
+}
+
+.orSearchBox {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #ccc;
+  padding: 5px 0;
+}
+
+.orSearchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  padding: 5px;
+}
+
+.orSearchBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+/* 검색 추천 목록 */
+.orSuggest {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-top: none;
+  z-index: 10;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.orSuggestItem {
+  width: 100%;
+  text-align: left;
+  padding: 10px 15px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.orSuggestItem:hover {
+  background-color: #f5f5f5;
+}
+
+/* 리뷰 그리드 레이아웃 */
+.orGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin-bottom: 50px;
+}
+
+/* 개별 리뷰 카드 */
+.orCard {
+  background-color: #fcfcfc;
+  border: 1px solid #eee;
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.orCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+}
+
+.orCardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 15px;
+}
+
+.orCardTitle {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+/* 별점 스타일 */
+.orStars {
+  display: flex;
+  gap: 2px;
+}
+
+.orStar {
+  color: #ddd;
+  font-size: 14px;
+}
+
+.orStar.on {
+  color: #ffc107; /* 황금색 별 */
+}
+
+/* 카드 본문 텍스트 */
+.orCardBody {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+  flex: 1;
+  margin-bottom: 15px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* 3줄까지만 표시 */
+  line-clamp : 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* 카드 하단 사용자 이름 */
+.orCardUser {
+  font-size: 12px;
+  color: #999;
+  text-align: right;
+}
+
+/* 하단 더보기 텍스트 */
+.orMore {
+  text-align: center;
+  color: #bbb;
+  font-style: italic;
+  font-size: 14px;
+  padding-bottom: 40px;
+}
+
+/* 스크롤바 커스텀 (선택사항) */
+.or-container-inline::-webkit-scrollbar {
+  width: 8px;
+}
+
+.or-container-inline::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.or-container-inline::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.or-container-inline::-webkit-scrollbar-thumb:hover {
+  background: #bbb;
+}

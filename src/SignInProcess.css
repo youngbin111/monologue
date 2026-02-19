@@ -1,0 +1,134 @@
+/* 로그인 페이지 전용 스타일 */
+.login-title-top { 
+  /* 기존 72px에서 56px로 줄여 조금 더 정갈하게 조정했습니다. */
+  font-size: 56px; 
+  font-weight: 800; 
+  color: #536754; 
+  margin-top: 180px; 
+  text-shadow: 2px 4px 6px rgba(0,0,0,0.1); 
+  letter-spacing: -2px; /* 한글 타이틀에 맞춰 자간을 더 좁혔습니다. */
+}
+
+.login-form-area { 
+  width: 100%; 
+  margin-top: 120px; 
+}
+
+.login-input-group { 
+  margin-bottom: 50px; 
+  width: 100%; 
+}
+
+.underline-input {
+  width: 100%; 
+  border: none; 
+  border-bottom: 1.5px solid #333; 
+  background: transparent; 
+  padding: 12px 5px; 
+  font-size: 22px; 
+  outline: none;
+  color: #333;
+}
+
+.underline-input::placeholder {
+  color: #a0a0a0;
+  font-size: 18px;
+}
+
+.login-helper-links { 
+  width: 100%; 
+  text-align: right; 
+  margin-top: -20px; 
+  font-size: 14px; 
+  color: #777; 
+}
+
+.login-helper-links span { 
+  cursor: pointer; 
+}
+
+.login-helper-links span:hover {
+  text-decoration: underline;
+  color: #333;
+}
+
+.login-helper-links .dot { 
+  margin: 0 8px; 
+}
+
+.login-submit-area { 
+  width: 100%; 
+  text-align: center; 
+  margin-top: 100px; 
+}
+
+.login-main-btn {
+  width: 180px; 
+  height: 60px; 
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1.2px solid #333; 
+  border-radius: 18px; 
+  font-size: 20px; 
+  cursor: pointer; 
+  transition: all 0.3s;
+}
+
+.login-main-btn:hover { 
+  background-color: #536754; 
+  color: white; 
+  border-color: #536754; 
+}
+
+@media (max-width: 900px) {
+  .login-title-top {
+    font-size: 42px;
+    margin-top: 40px;
+    letter-spacing: -1px;
+  }
+
+  .login-form-area {
+    margin-top: 55px;
+  }
+
+  .login-input-group {
+    margin-bottom: 32px;
+  }
+
+  .underline-input {
+    font-size: 18px;
+  }
+
+  .underline-input::placeholder {
+    font-size: 15px;
+  }
+
+  .login-helper-links {
+    margin-top: -6px;
+    font-size: 13px;
+  }
+
+  .login-submit-area {
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-title-top {
+    font-size: 34px;
+    margin-top: 28px;
+  }
+
+  .login-form-area {
+    margin-top: 40px;
+  }
+
+  .login-input-group {
+    margin-bottom: 24px;
+  }
+
+  .login-main-btn {
+    width: 160px;
+    height: 52px;
+    font-size: 18px;
+  }
+}

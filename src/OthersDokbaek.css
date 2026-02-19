@@ -1,0 +1,155 @@
+/* 사이드바 관련 .odPage, .odSidebar 스타일은 SignUpProcess와 겹치므로 제거하거나 수정합니다. */
+
+.od-sub-content {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto; /* 내용이 길어질 경우 내부 스크롤 */
+  display: flex;
+  justify-content: center;
+}
+
+.odMain {
+  width: 100%;
+  padding: 40px 20px;
+  box-sizing: border-box;
+}
+
+/* 중앙 패널 */
+.odPanel {
+  max-width: 850px; /* 우측 섹션 너비에 맞춰 소폭 조정 */
+  margin: 0 auto;
+  background: #f7f6f2;
+  border-radius: 15px;
+  padding: 40px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.odState {
+  color: #6f6f6f;
+  font-size: 14px;
+  padding: 8px 0 16px;
+}
+
+.odError {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #f8ecec;
+  color: #7f2f2f;
+  font-size: 13px;
+}
+
+/* 제목 */
+.odTitle {
+  margin: 0 0 30px;
+  font-size: 38px;
+  text-align: center;
+  color: #4f6b57;
+}
+
+.odTitleUser {
+  font-weight: 900;
+}
+
+/* 상단 row */
+.odRow {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+/* 표지 */
+.odCoverFrame {
+  width: 280px;
+  height: 150px;
+  background: #fff;
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.odCoverImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* 정보 영역 */
+.odInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.odBookTitleBtn {
+  all: unset;
+  cursor: pointer;
+  font-size: 24px;
+  font-weight: 800;
+  color: #1d1d1d;
+}
+
+.odRatingBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.odLabel {
+  font-size: 13px;
+  font-weight: bold;
+  color: #888;
+}
+
+.odStars {
+  display: flex;
+  gap: 4px;
+  color: #ddd;
+}
+
+.odStar.on {
+  color: #4f6b57;
+}
+
+/* 독서록 박스 */
+.odReviewBox {
+  margin-top: 20px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #eee;
+  padding: 25px;
+  box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+}
+
+.odReviewText {
+  font-size: 15px;
+  line-height: 1.8;
+  color: #444;
+  white-space: pre-wrap;
+}
+
+/* 종료 버튼 */
+.odExitRow {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 30px;
+}
+
+.odExitBtn {
+  border: 1px solid #ccc;
+  background: transparent;
+  border-radius: 20px;
+  padding: 10px 25px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.odExitBtn:hover {
+  background: #4f6b57;
+  color: white;
+  border-color: #4f6b57;
+}

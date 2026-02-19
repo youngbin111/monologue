@@ -1,0 +1,78 @@
+.mpd-container {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  background: #e9e7e3;
+  box-sizing: border-box;
+  padding: 36px 28px 48px;
+}
+
+.mpd-back-btn {
+  border: 1px solid #8f8a81;
+  background: #f4f1ea;
+  color: #4f4a41;
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.mpd-state {
+  margin-top: 20px;
+  color: #6f6f6f;
+}
+
+.mpd-error {
+  margin-top: 20px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #f8ecec;
+  color: #7f2f2f;
+  font-size: 13px;
+}
+
+.mpd-card {
+  margin-top: 22px;
+  max-width: 860px;
+  border-radius: 14px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #f7f6f3;
+  padding: 24px 24px 28px;
+}
+
+.mpd-header h1 {
+  margin: 0;
+  font-size: 30px;
+  color: #2f2f2f;
+}
+
+.mpd-meta {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  color: #67635b;
+  font-size: 12px;
+}
+
+.mpd-content {
+  margin-top: 20px;
+  white-space: pre-wrap;
+  line-height: 1.7;
+  color: #343434;
+  font-size: 15px;
+}
+
+@media (max-width: 700px) {
+  .mpd-container {
+    padding: 22px 14px 34px;
+  }
+
+  .mpd-card {
+    padding: 18px;
+  }
+
+  .mpd-header h1 {
+    font-size: 24px;
+  }
+}
