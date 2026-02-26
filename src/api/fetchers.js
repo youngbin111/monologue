@@ -57,6 +57,165 @@ export function plainFetch(url, options = {}) {
   });
 }
 
+export async function checkUsernameAvailability({ username, url } = {}) {
+  const trimmedUsername = (username ?? "").trim();
+  if (!trimmedUsername) {
+    throw new Error("아이디를 입력해주세요.");
+  }
+
+  const baseUrl =
+    url ??
+    process.env.REACT_APP_CHECK_USERNAME_API_URL ??
+    `${getApiBase()}/api/accounts/check-username/`;
+  const query = new URLSearchParams({
+    username: trimmedUsername,
+  });
+
+  const response = await plainFetch(`${baseUrl}?${query.toString()}`, {
+    method: "GET",
+  });
+
+  let data = null;
+  try {
+    data = await response.json();
+  } catch (parseError) {
+    data = null;
+  }
+
+  if (!response.ok || data?.success === false) {
+    throw new Error(data?.message || data?.detail || "아이디 중복확인에 실패했습니다.");
+  }
+
+  const parseBool = (value) => {
+    if (typeof value === "boolean") return value;
+    if (typeof value === "string") {
+      const normalized = value.trim().toLowerCase();
+      if (normalized === "true") return true;
+      if (normalized === "false") return false;
+    }
+    return null;
+  };
+
+  const availableFromResponse = parseBool(data?.available);
+  const existsFromResponse = parseBool(data?.exists);
+  const messageText = String(data?.message ?? "");
+  const inferredFromMessage =
+    messageText.includes("사용 가능한") ? true : messageText.includes("이미 사용") ? false : null;
+  const resolvedAvailable =
+    availableFromResponse !== null
+      ? availableFromResponse
+      : existsFromResponse !== null
+        ? !existsFromResponse
+        : inferredFromMessage !== null
+          ? inferredFromMessage
+          : false;
+  const resolvedExists =
+    existsFromResponse !== null ? existsFromResponse : !resolvedAvailable;
+
+  return {
+    success: true,
+    available: resolvedAvailable,
+    exists: resolvedExists,
+    message: data?.message || "",
+  };
+}
+
+export async function findAccountId({ name, phone, url } = {}) {
+  const trimmedName = (name ?? "").trim();
+  const trimmedPhone = (phone ?? "").trim();
+
+  if (!trimmedName || !trimmedPhone) {
+    throw new Error("이름과 전화번호를 모두 입력해주세요.");
+  }
+
+  const targetUrl = url ?? process.env.REACT_APP_FIND_ID_API_URL ?? `${getApiBase()}/api/accounts/find-id/`;
+  const response = await plainFetch(targetUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: trimmedName,
+      phone: trimmedPhone,
+    }),
+  });
+
+  let data = null;
+  try {
+    data = await response.json();
+  } catch (parseError) {
+    data = null;
+  }
+
+  if (!response.ok || data?.success === false) {
+    throw new Error(data?.message || data?.detail || "아이디 찾기 요청에 실패했습니다.");
+  }
+
+  return {
+    success: true,
+    username: data?.username ?? "",
+    message: data?.message ?? "아이디를 찾았습니다",
+  };
+}
+
+export async function confirmPasswordReset({
+  uidb64,
+  token,
+  newPassword,
+  newPassword2,
+  url,
+} = {}) {
+  const encodedUid = `${uidb64 ?? ""}`.trim();
+  const encodedToken = `${token ?? ""}`.trim();
+
+  if (!encodedUid || !encodedToken) {
+    throw new Error("유효하지 않거나 만료된 링크입니다");
+  }
+
+  if (!newPassword || !newPassword2) {
+    throw new Error("새 비밀번호를 모두 입력해주세요.");
+  }
+
+  const targetUrl =
+    url ??
+    `${getApiBase()}/api/accounts/password-reset-confirm/${encodeURIComponent(encodedUid)}/${encodeURIComponent(encodedToken)}/`;
+
+  const response = await plainFetch(targetUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      new_password: newPassword,
+      new_password2: newPassword2,
+    }),
+  });
+
+  let data = null;
+  try {
+    data = await response.json();
+  } catch (parseError) {
+    data = null;
+  }
+
+  if (!response.ok || data?.success === false) {
+    const fieldErrors = data?.errors ? Object.values(data.errors).flat().join("\n") : "";
+    throw new Error(
+      fieldErrors ||
+      data?.message ||
+      data?.detail ||
+      "비밀번호 재설정에 실패했습니다."
+    );
+  }
+
+  return {
+    success: true,
+    message:
+      data?.message ||
+      "비밀번호가 성공적으로 재설정되었습니다. 새 비밀번호로 로그인해주세요.",
+  };
+}
+
 export async function searchBooks({ keyword, limit = 5, url } = {}) {
   const q = (keyword ?? "").trim();
   if (!q) {
@@ -199,7 +358,19 @@ export async function fetchMyPosts({ category, className, url } = {}) {
     );
   }
 
-  return Array.isArray(data) ? data : [];
+  if (Array.isArray(data)) {
+    return data;
+  }
+
+  // Support paginated/object list responses from backend.
+  if (Array.isArray(data?.results)) {
+    return data.results;
+  }
+  if (Array.isArray(data?.posts)) {
+    return data.posts;
+  }
+
+  return [];
 }
 
 export async function fetchMyPostDetail({ id, category, className, url } = {}) {

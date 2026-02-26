@@ -206,6 +206,15 @@ export default function MyDokbaek({ onFinish }) {
   const [hashtagLine, setHashtagLine] = useState("");
   const [reviewText, setReviewText] = useState("");
 
+  const pickWordFromOneLine = (line) => {
+    const candidates = String(line ?? "")
+      .split(/\s+/)
+      .map((token) => token.replace(/^#+/, "").replace(/[^A-Za-z0-9가-힣_-]/g, ""))
+      .filter(Boolean);
+
+    return candidates[0] ?? "";
+  };
+
   // 책 선택 + 리뷰 작성이 되어야 버튼이 활성화됩니다.
   const canFinish = Boolean(selectedBook) && Boolean(reviewText.trim());
 
@@ -221,6 +230,7 @@ export default function MyDokbaek({ onFinish }) {
 
     const apiBase = (process.env.REACT_APP_API_BASE_URL ?? "").replace(/\/$/, "");
     const postUrl = process.env.REACT_APP_POSTS_API_URL ?? `${apiBase}/api/posts/`;
+    let savedPost = null;
 
     try {
       setIsSubmitting(true);
@@ -259,6 +269,14 @@ export default function MyDokbaek({ onFinish }) {
       if (!data?.id || !data?.book_title) {
         throw new Error("독서록 저장 응답 형식이 올바르지 않습니다.");
       }
+      savedPost = data;
+
+      const pickedWord = pickWordFromOneLine(hashtagLine);
+      if (pickedWord) {
+        localStorage.setItem("myDokbaekOneLineWord", pickedWord);
+      } else {
+        localStorage.removeItem("myDokbaekOneLineWord");
+      }
     } catch (error) {
       console.error("독백 저장 실패:", error);
       alert(error.message || "저장에 실패했습니다. 잠시 후 다시 시도해주세요.");
@@ -268,9 +286,9 @@ export default function MyDokbaek({ onFinish }) {
     }
 
     alert("저장되었습니다!");
-    
-    // 이 함수가 실행되면서 SignUpProcess의 setViewMode(0)를 호출해 홈으로 이동시킵니다.
-    if (typeof onFinish === "function") onFinish();
+
+    // Save result payload so list can reflect immediately even before next fetch cycle.
+    if (typeof onFinish === "function") onFinish(savedPost);
   };
 
   return (

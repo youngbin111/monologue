@@ -14,6 +14,7 @@ export default function BookRecommend({
   onGoSignUp,
   onOpenBookDetail,
   preferredCategoryCode = "01",
+  isLoggedIn = false,
 }) {
   // 책 데이터 목록
   const books = useMemo(
@@ -48,6 +49,28 @@ export default function BookRecommend({
   const [categoryBooks, setCategoryBooks] = useState([]);
   const [isCategoryLoading, setIsCategoryLoading] = useState(false);
   const [categoryError, setCategoryError] = useState("");
+
+  const quoteText = useMemo(() => {
+    if (!isLoggedIn) return "";
+
+    let currentUser = null;
+    try {
+      currentUser = JSON.parse(localStorage.getItem("currentUser") ?? "null");
+    } catch (error) {
+      currentUser = null;
+    }
+
+    const loginId =
+      currentUser?.username ||
+      currentUser?.id ||
+      currentUser?.nickname ||
+      currentUser?.name ||
+      "";
+    if (!loginId) return "";
+
+    const word = localStorage.getItem("myDokbaekOneLineWord") || "오늘의";
+    return `‘${word}’ ${loginId}님께`;
+  }, [isLoggedIn]);
 
   useEffect(() => {
     let isCancelled = false;
@@ -108,7 +131,7 @@ export default function BookRecommend({
       */}
       <main className="br-main">
         <header className="br-header">
-          <div className="br-quote">‘허무한’ 독백님께</div>
+          {quoteText ? <div className="br-quote">{quoteText}</div> : <div className="br-quote" />}
 
           <div className="br-searchWrap">
             <div className="br-search">

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import "./MyDokbaekList.css";
 import { fetchMyPosts } from "./api/fetchers";
 
-export default function MyDokbaekList({ onOpenPostDetail, onWriteDokbaek }) {
+export default function MyDokbaekList({ onOpenPostDetail, onWriteDokbaek, optimisticPost = null }) {
   const [posts, setPosts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -35,7 +35,7 @@ export default function MyDokbaekList({ onOpenPostDetail, onWriteDokbaek }) {
   }, []);
 
   const myPosts = useMemo(() => {
-    return posts.map((post) => ({
+    const normalized = posts.map((post) => ({
       id: post.id,
       title: post.book_title ?? "제목 없음",
       content: post.content ?? "",
@@ -44,7 +44,29 @@ export default function MyDokbaekList({ onOpenPostDetail, onWriteDokbaek }) {
       bookId: post.book_id ?? post.bookId ?? "",
       cover: post.cover_image ?? post.cover ?? null,
     }));
-  }, [posts]);
+
+    if (!optimisticPost || !optimisticPost.id) {
+      return normalized;
+    }
+
+    const alreadyIncluded = normalized.some((post) => String(post.id) === String(optimisticPost.id));
+    if (alreadyIncluded) {
+      return normalized;
+    }
+
+    return [
+      {
+        id: optimisticPost.id,
+        title: optimisticPost.book_title ?? "제목 없음",
+        content: optimisticPost.content ?? "",
+        createdAt: optimisticPost.created_at ?? "",
+        isPublic: Boolean(optimisticPost.is_public),
+        bookId: optimisticPost.book_id ?? optimisticPost.bookId ?? "",
+        cover: optimisticPost.cover_image ?? optimisticPost.cover ?? null,
+      },
+      ...normalized,
+    ];
+  }, [posts, optimisticPost]);
 
   const formatDate = (isoDate) => {
     if (!isoDate) return "-";

@@ -10,7 +10,7 @@ import BookDetail from './BookDetail';
 import GenreSelect from './GenreSelect';
 import MyDokbaekList from './MyDokbaekList';
 import MyPostDetail from "./MyPostDetail";
-import { plainFetch } from "./api/fetchers";
+import { checkUsernameAvailability, plainFetch } from "./api/fetchers";
 
 const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
   const [viewMode, setViewMode] = useState(0); 
@@ -19,12 +19,14 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
   const [selectedBookId, setSelectedBookId] = useState("");
   const [selectedMyPostId, setSelectedMyPostId] = useState("");
   const [selectedOtherPostId, setSelectedOtherPostId] = useState("");
+  const [latestMyPost, setLatestMyPost] = useState(null);
   
   const [formData, setFormData] = useState({ 
     name: '', phone: '', nickname: '', id: '', pw: '', confirmPw: '', email: '' 
   });
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [isIdChecked, setIsIdChecked] = useState(false);
+  const [isIdChecking, setIsIdChecking] = useState(false);
 
   const allGenres = [
     "공학", "자연과학", "소설", "유아/어린이/청소년", "의학", "인문/사회", "탐정소설",
@@ -79,10 +81,24 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
     if (name === 'id') setIsIdChecked(false);
   };
 
-  const handleIdCheck = () => {
-    if (!formData.id) return alert("아이디를 입력해주세요.");
-    setIsIdChecked(true);
-    alert("사용 가능한 아이디입니다.");
+  const handleIdCheck = async () => {
+    const username = formData.id.trim();
+    if (!username) {
+      alert("아이디를 입력해주세요.");
+      return;
+    }
+
+    try {
+      setIsIdChecking(true);
+      const result = await checkUsernameAvailability({ username });
+      setIsIdChecked(Boolean(result.available));
+      alert(result.message || (result.available ? "사용 가능한 아이디입니다" : "이미 사용 중인 아이디입니다"));
+    } catch (error) {
+      setIsIdChecked(false);
+      alert(error.message || "아이디 중복확인에 실패했습니다.");
+    } finally {
+      setIsIdChecking(false);
+    }
   };
 
   const isPwMismatch = formData.confirmPw.length > 0 && formData.pw !== formData.confirmPw;
@@ -334,7 +350,10 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
           {/* [6] 나의 독백 작성 화면 */}
           {viewMode === 6 && (
             <MyDokbaek
-              onFinish={() => setViewMode(10)}
+              onFinish={(createdPost) => {
+                setLatestMyPost(createdPost ?? null);
+                setViewMode(10);
+              }}
               onOpenBookDetail={openBookDetail}
             />
           )}
@@ -342,6 +361,7 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
           {/* [10] 나의 독백들 목록 */}
           {viewMode === 10 && (
             <MyDokbaekList
+              optimisticPost={latestMyPost}
               onOpenPostDetail={openMyPostDetail}
               onWriteDokbaek={() => setViewMode(6)}
             />
@@ -362,6 +382,7 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
               onGoSignUp={() => setViewMode(0)} 
               onOpenBookDetail={openBookDetail}
               preferredCategoryCode={getPreferredCategoryCode()}
+              isLoggedIn={isLoggedIn}
             />
           )}
 
@@ -380,8 +401,8 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
                   </div>
                   <div className="input-group">
                     <input type="text" name="id" placeholder="아이디" onChange={handleChange} />
-                    <button type="button" className={`check-btn ${isIdChecked ? 'ok' : ''}`} onClick={handleIdCheck}>
-                      {isIdChecked ? "확인됨" : "중복확인"}
+                    <button type="button" className={`check-btn ${isIdChecked ? 'ok' : ''}`} onClick={handleIdCheck} disabled={isIdChecking}>
+                      {isIdChecking ? "확인중" : isIdChecked ? "확인됨" : "중복확인"}
                     </button>
                   </div>
                   <div className="input-group"><input type="password" name="pw" placeholder="비밀번호" onChange={handleChange} /></div>

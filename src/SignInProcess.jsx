@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './SignInProcess.css';
 import { plainFetch } from "./api/fetchers";
+import FindIdProcess from "./FindIdProcess";
 
 const SignInProcess = ({ onLoginSuccess, onGoSignUp, onGoHome }) => {
   // view: 0(로그인), 1(아이디 찾기), 2(비밀번호 찾기)
@@ -9,7 +10,6 @@ const SignInProcess = ({ onLoginSuccess, onGoSignUp, onGoHome }) => {
   
   // 각 화면별 독립된 데이터 상태
   const [loginData, setLoginData] = useState({ id: '', pw: '' });
-  const [findData, setFindData] = useState({ name: '', phone: '' });
   const [findPwData, setFindPwData] = useState({ name: '', id: '', email: '' });
 
   const handleLogin = async () => {
@@ -133,32 +133,7 @@ const SignInProcess = ({ onLoginSuccess, onGoSignUp, onGoHome }) => {
 
             {/* 2. 아이디 찾기 화면 */}
             {view === 1 && (
-              <>
-                <h1 className="login-title-top">아이디 찾기</h1>
-                <div className="login-form-area">
-                  <div className="login-input-group">
-                    <input 
-                      type="text" 
-                      placeholder="이름" 
-                      className="underline-input" 
-                      value={findData.name}
-                      onChange={(e)=>setFindData({...findData, name: e.target.value})} 
-                    />
-                  </div>
-                  <div className="login-input-group">
-                    <input 
-                      type="text" 
-                      placeholder="전화번호" 
-                      className="underline-input" 
-                      value={findData.phone}
-                      onChange={(e)=>setFindData({...findData, phone: e.target.value})} 
-                    />
-                  </div>
-                  <div className="login-submit-area">
-                    <button className="login-main-btn" onClick={() => setView(0)}>로그인 찾기</button>
-                  </div>
-                </div>
-              </>
+              <FindIdProcess onBack={() => setView(0)} />
             )}
 
             {/* 3. 비밀번호 찾기 화면 - 요청 이미지 반영 */}

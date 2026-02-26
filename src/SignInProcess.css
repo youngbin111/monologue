@@ -79,6 +79,44 @@
   border-color: #536754; 
 }
 
+.login-sub-btn {
+  margin-top: 12px;
+  width: 180px;
+  height: 46px;
+  background-color: transparent;
+  border: 1px solid #999;
+  border-radius: 14px;
+  font-size: 15px;
+  color: #666;
+  cursor: pointer;
+}
+
+.login-sub-btn:hover {
+  border-color: #536754;
+  color: #536754;
+}
+
+.find-id-result {
+  margin-top: 10px;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.find-id-result.success {
+  color: #2f5134;
+}
+
+.find-id-result.success strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 22px;
+  color: #1f3623;
+}
+
+.find-id-result.error {
+  color: #9b3a3a;
+}
+
 @media (max-width: 900px) {
   .login-title-top {
     font-size: 42px;
@@ -130,5 +168,11 @@
     width: 160px;
     height: 52px;
     font-size: 18px;
+  }
+
+  .login-sub-btn {
+    width: 160px;
+    height: 42px;
+    font-size: 14px;
   }
 }

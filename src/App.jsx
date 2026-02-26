@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import SignUpProcess from './SignUpProcess';
 import { authFetch, verifyToken } from './api/fetchers';
+import PasswordResetConfirm from './PasswordResetConfirm';
 
 function App() {
+  const isPasswordResetConfirmPage = /^\/password-reset-confirm\/[^/]+\/[^/]+\/?$/.test(
+    window.location.pathname
+  );
+
   // 로그인 상태 관리
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
@@ -18,6 +23,10 @@ function App() {
   };
 
   useEffect(() => {
+    if (isPasswordResetConfirmPage) {
+      return;
+    }
+
     const initializeAuth = async () => {
       const hasAnyToken =
         Boolean(localStorage.getItem("accessToken")) ||
@@ -41,7 +50,7 @@ function App() {
     };
 
     initializeAuth();
-  }, []);
+  }, [isPasswordResetConfirmPage]);
 
   // 로그아웃 처리
   const handleLogout = async () => {
@@ -97,15 +106,15 @@ function App() {
 
   return (
     <div className="App">
-      {/* [에러 해결 포인트] 
-        SignUpProcess 내부에서 onAuthSuccess()를 실행하므로, 
-        반드시 props로 handleAuthSuccess 함수를 전달해야 합니다.
-      */}
-      <SignUpProcess 
-        isLoggedIn={isLoggedIn} 
-        onAuthSuccess={handleAuthSuccess} 
-        onLogout={handleLogout} 
-      />
+      {isPasswordResetConfirmPage ? (
+        <PasswordResetConfirm />
+      ) : (
+        <SignUpProcess 
+          isLoggedIn={isLoggedIn} 
+          onAuthSuccess={handleAuthSuccess} 
+          onLogout={handleLogout} 
+        />
+      )}
     </div>
   );
 }
