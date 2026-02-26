@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import './SignInProcess.css';
-import { plainFetch } from "./api/fetchers";
+import { plainFetch, requestPasswordReset } from "./api/fetchers";
 import FindIdProcess from "./FindIdProcess";
 
 const SignInProcess = ({ onLoginSuccess, onGoSignUp, onGoHome }) => {
   // view: 0(로그인), 1(아이디 찾기), 2(비밀번호 찾기)
   const [view, setView] = useState(0);
   const [isLoginSubmitting, setIsLoginSubmitting] = useState(false);
+  const [isPasswordResetSubmitting, setIsPasswordResetSubmitting] = useState(false);
   
   // 각 화면별 독립된 데이터 상태
   const [loginData, setLoginData] = useState({ id: '', pw: '' });
-  const [findPwData, setFindPwData] = useState({ name: '', id: '', email: '' });
+  const [findPwData, setFindPwData] = useState({ email: '' });
 
   const handleLogin = async () => {
     const username = loginData.id.trim();
@@ -73,6 +74,28 @@ const SignInProcess = ({ onLoginSuccess, onGoSignUp, onGoHome }) => {
       alert(error.message || "로그인에 실패했습니다.");
     } finally {
       setIsLoginSubmitting(false);
+    }
+  };
+
+  const handlePasswordResetRequest = async () => {
+    const email = findPwData.email.trim();
+    if (!email) {
+      alert("이메일을 입력해주세요.");
+      return;
+    }
+
+    try {
+      setIsPasswordResetSubmitting(true);
+      const result = await requestPasswordReset({ email });
+      alert(
+        result.message ||
+          "비밀번호 재설정 이메일이 발송되었습니다. 이메일을 확인해주세요."
+      );
+      setView(0);
+    } catch (error) {
+      alert(error.message || "비밀번호 재설정 요청에 실패했습니다.");
+    } finally {
+      setIsPasswordResetSubmitting(false);
     }
   };
 
@@ -143,33 +166,21 @@ const SignInProcess = ({ onLoginSuccess, onGoSignUp, onGoHome }) => {
                 <div className="login-form-area">
                   <div className="login-input-group">
                     <input 
-                      type="text" 
-                      placeholder="이름" 
-                      className="underline-input" 
-                      value={findPwData.name}
-                      onChange={(e)=>setFindPwData({...findPwData, name: e.target.value})} 
-                    />
-                  </div>
-                  <div className="login-input-group">
-                    <input 
-                      type="text" 
-                      placeholder="아이디" 
-                      className="underline-input" 
-                      value={findPwData.id}
-                      onChange={(e)=>setFindPwData({...findPwData, id: e.target.value})} 
-                    />
-                  </div>
-                  <div className="login-input-group">
-                    <input 
-                      type="text" 
-                      placeholder="이메일" 
+                      type="email" 
+                      placeholder="가입한 이메일" 
                       className="underline-input" 
                       value={findPwData.email}
                       onChange={(e)=>setFindPwData({...findPwData, email: e.target.value})} 
                     />
                   </div>
                   <div className="login-submit-area">
-                    <button className="login-main-btn" onClick={() => setView(0)}>비밀번호 찾기</button>
+                    <button
+                      className="login-main-btn"
+                      onClick={handlePasswordResetRequest}
+                      disabled={isPasswordResetSubmitting}
+                    >
+                      {isPasswordResetSubmitting ? "요청 중..." : "비밀번호 재설정 메일 보내기"}
+                    </button>
                   </div>
                 </div>
               </>

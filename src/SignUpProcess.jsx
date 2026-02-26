@@ -91,6 +91,7 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
     try {
       setIsIdChecking(true);
       const result = await checkUsernameAvailability({ username });
+      console.log("[ID_CHECK_RESULT]", { username, available: result.available, message: result.message, exists: result.exists });
       setIsIdChecked(Boolean(result.available));
       alert(result.message || (result.available ? "사용 가능한 아이디입니다" : "이미 사용 중인 아이디입니다"));
     } catch (error) {

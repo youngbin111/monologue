@@ -158,6 +158,46 @@ export async function findAccountId({ name, phone, url } = {}) {
   };
 }
 
+export async function requestPasswordReset({ email, url } = {}) {
+  const trimmedEmail = (email ?? "").trim();
+  if (!trimmedEmail) {
+    throw new Error("이메일을 입력해주세요.");
+  }
+
+  const targetUrl =
+    url ??
+    process.env.REACT_APP_PASSWORD_RESET_API_URL ??
+    `${getApiBase()}/api/accounts/password-reset/`;
+
+  const response = await plainFetch(targetUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: trimmedEmail,
+    }),
+  });
+
+  let data = null;
+  try {
+    data = await response.json();
+  } catch (parseError) {
+    data = null;
+  }
+
+  if (!response.ok || data?.success === false) {
+    throw new Error(data?.message || data?.detail || "비밀번호 재설정 요청에 실패했습니다.");
+  }
+
+  return {
+    success: true,
+    message:
+      data?.message ||
+      "비밀번호 재설정 이메일이 발송되었습니다. 이메일을 확인해주세요.",
+  };
+}
+
 export async function confirmPasswordReset({
   uidb64,
   token,
@@ -487,6 +527,8 @@ export async function fetchPublicPostDetail({ id, url } = {}) {
   return data;
 }
 
+
+
 export async function refreshAccessToken() {
   const refreshToken = localStorage.getItem("refreshToken");
   if (!refreshToken) {
@@ -539,6 +581,7 @@ export async function authFetch(url, options = {}) {
     headers: mergeHeaders(
       {
         Authorization: `Bearer ${token}`,
+        "ngrok-skip-browser-warning": "69420",
       },
       headers
     ),
@@ -551,6 +594,7 @@ export async function authFetch(url, options = {}) {
       headers: mergeHeaders(
         {
           Authorization: `Bearer ${refreshedAccessToken}`,
+          "ngrok-skip-browser-warning": "69420",
         },
         headers
       ),

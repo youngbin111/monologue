@@ -3,7 +3,7 @@ import { confirmPasswordReset } from "./api/fetchers";
 import "./SignInProcess.css";
 
 function extractResetParams(pathname) {
-  const match = pathname.match(/^\/password-reset-confirm\/([^/]+)\/([^/]+)\/?$/);
+  const match = pathname.match(/^\/(?:password-reset-confirm|reset-password)\/([^/]+)\/([^/]+)\/?$/);
   if (!match) {
     return { uidb64: "", token: "" };
   }

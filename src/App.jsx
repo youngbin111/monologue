@@ -4,7 +4,7 @@ import { authFetch, verifyToken } from './api/fetchers';
 import PasswordResetConfirm from './PasswordResetConfirm';
 
 function App() {
-  const isPasswordResetConfirmPage = /^\/password-reset-confirm\/[^/]+\/[^/]+\/?$/.test(
+  const isPasswordResetConfirmPage = /^\/(password-reset-confirm|reset-password)\/[^/]+\/[^/]+\/?$/.test(
     window.location.pathname
   );
 
