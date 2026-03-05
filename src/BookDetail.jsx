@@ -71,7 +71,7 @@ export default function BookDetail({ onOpenReview, onBack, bookId }) {
         {/* 왼쪽 책 표지 */}
         <div className="bookDetail-cover">
           <img
-            src={book.coverImage || "https://via.placeholder.com/300x430?text=No+Cover"}
+            src={book.coverImage || "http://monologue.ehdgus.com/api/img/S000216796615.jpg"}
             alt={`${book.title} 표지`}
           />
         </div>

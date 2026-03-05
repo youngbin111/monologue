@@ -11,6 +11,24 @@ function getApiBase() {
   return (process.env.REACT_APP_API_BASE_URL ?? "").replace(/\/$/, "");
 }
 
+function getBookApiBase() {
+  const fromBookApi = `${process.env.REACT_APP_BOOK_API_BASE_URL ?? ""}`.trim();
+  if (fromBookApi) return fromBookApi.replace(/\/$/, "");
+
+  const fromApiBase = `${process.env.REACT_APP_API_BASE_URL ?? ""}`.trim();
+  if (fromApiBase) return fromApiBase.replace(/\/$/, "");
+
+  return "http://localhost:8000";
+}
+
+function resolveBookCoverUrl(rawCover) {
+  const cover = `${rawCover ?? ""}`.trim();
+  if (!cover) return null;
+  if (/^https?:\/\//i.test(cover)) return cover;
+  if (cover.startsWith("/")) return `${getBookApiBase()}${cover}`;
+  return `${getBookApiBase()}/api/img/${cover}`;
+}
+
 function toMyPostsLoginMessage(error, fallbackMessage) {
   const raw = String(error?.message ?? "");
   if (
@@ -28,7 +46,7 @@ function normalizeBookSearchResult(item = {}) {
     id: item.id,
     title: item.title ?? "",
     author: item.author ?? "",
-    cover: item.cover_image ?? null,
+    cover: resolveBookCoverUrl(item.cover_image),
   };
 }
 
@@ -40,7 +58,7 @@ function normalizeBookDetail(item = {}) {
     category: item.category ?? "",
     reviewScore: item.review_score ?? "",
     summary: item.summary ?? "",
-    coverImage: item.cover_image ?? null,
+    coverImage: resolveBookCoverUrl(item.cover_image),
     bookdata: item.bookdata ?? {},
   };
 }
@@ -55,6 +73,15 @@ export function plainFetch(url, options = {}) {
     ...rest,
     headers: mergeHeaders({}, headers),
   });
+}
+
+function isNgrokUrl(url) {
+  try {
+    const parsed = new URL(url);
+    return parsed.hostname.includes("ngrok");
+  } catch (error) {
+    return false;
+  }
 }
 
 export async function checkUsernameAvailability({ username, url } = {}) {
@@ -268,7 +295,7 @@ export async function searchBooks({ keyword, limit = 5, url } = {}) {
   const baseUrl =
     url ??
     process.env.REACT_APP_BOOK_SEARCH_API_URL ??
-    `${getApiBase()}/api/books/search`;
+    `${getBookApiBase()}/api/books/search`;
   const query = new URLSearchParams({
     keyword: q,
     limit: String(limit),
@@ -305,7 +332,7 @@ export async function fetchBookDetail({ id, url } = {}) {
   const baseUrl =
     url ??
     process.env.REACT_APP_BOOK_DETAIL_API_URL ??
-    `${getApiBase()}/api/books/detail`;
+    `${getBookApiBase()}/api/books/detail`;
   const query = new URLSearchParams({ id: bookId });
 
   const response = await plainFetch(`${baseUrl}?${query.toString()}`, {
@@ -335,7 +362,7 @@ export async function fetchBooksByCategory({ category, limit = 5, url } = {}) {
   const baseUrl =
     url ??
     process.env.REACT_APP_BOOK_CATEGORY_API_URL ??
-    `${getApiBase()}/api/books/category`;
+    `${getBookApiBase()}/api/books/category`;
   const query = new URLSearchParams({
     category: categoryCode,
     limit: String(limit),
@@ -364,7 +391,7 @@ export async function fetchBooksByCategory({ category, limit = 5, url } = {}) {
 }
 
 export async function fetchMyPosts({ category, className, url } = {}) {
-  const baseUrl = url ?? process.env.REACT_APP_MY_POSTS_API_URL ?? `${getApiBase()}/api/posts/my-posts/`;
+  const baseUrl = url ?? process.env.REACT_APP_MY_POSTS_API_URL ?? `${getApiBase()}/api/posts/my/`;
   const query = new URLSearchParams();
 
   if (category) query.set("category", String(category));
@@ -386,6 +413,24 @@ export async function fetchMyPosts({ category, className, url } = {}) {
   }
 
   if (!response.ok) {
+    if (response.status === 404) {
+      const legacyUrl = `${getApiBase()}/api/posts/my-posts/`;
+      const legacyTargetUrl = query.toString() ? `${legacyUrl}?${query.toString()}` : legacyUrl;
+      const legacyResponse = await authFetch(legacyTargetUrl, { method: "GET" });
+      let legacyData = null;
+      try {
+        legacyData = await legacyResponse.json();
+      } catch (parseError) {
+        legacyData = null;
+      }
+      if (legacyResponse.ok) {
+        if (Array.isArray(legacyData)) return legacyData;
+        if (Array.isArray(legacyData?.results)) return legacyData.results;
+        if (Array.isArray(legacyData?.posts)) return legacyData.posts;
+        return [];
+      }
+    }
+
     const fieldErrors =
       data && typeof data === "object"
         ? Object.values(data).flat?.().join?.("\n")
@@ -419,7 +464,7 @@ export async function fetchMyPostDetail({ id, category, className, url } = {}) {
     throw new Error("독서록 id가 필요합니다.");
   }
 
-  const baseUrl = url ?? process.env.REACT_APP_MY_POST_DETAIL_API_URL ?? `${getApiBase()}/api/posts/my-posts`;
+  const baseUrl = url ?? process.env.REACT_APP_MY_POST_DETAIL_API_URL ?? `${getApiBase()}/api/posts/my`;
   const normalizedBaseUrl = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
   const query = new URLSearchParams();
 
@@ -508,7 +553,7 @@ async function mutateMyPostWithFallback({ id, method, payload, url, fallbackUrl,
     throw new Error("독서록 id가 필요합니다.");
   }
 
-  const myPostsBase = url ?? process.env.REACT_APP_MY_POST_DETAIL_API_URL ?? `${getApiBase()}/api/posts/my-posts`;
+  const myPostsBase = url ?? process.env.REACT_APP_MY_POST_DETAIL_API_URL ?? `${getApiBase()}/api/posts/my`;
   const normalizedMyPostsBase = myPostsBase.endsWith("/") ? myPostsBase.slice(0, -1) : myPostsBase;
   const myPostsTargetUrl = `${normalizedMyPostsBase}/${encodeURIComponent(postId)}/`;
 
@@ -697,12 +742,16 @@ export async function authFetch(url, options = {}) {
     ...rest
   } = options;
 
+  const ngrokBypassHeader = isNgrokUrl(url)
+    ? { "ngrok-skip-browser-warning": "69420" }
+    : {};
+
   let response = await fetch(url, {
     ...rest,
     headers: mergeHeaders(
       {
         Authorization: `Bearer ${token}`,
-        "ngrok-skip-browser-warning": "69420",
+        ...ngrokBypassHeader,
       },
       headers
     ),
@@ -715,7 +764,7 @@ export async function authFetch(url, options = {}) {
       headers: mergeHeaders(
         {
           Authorization: `Bearer ${refreshedAccessToken}`,
-          "ngrok-skip-browser-warning": "69420",
+          ...ngrokBypassHeader,
         },
         headers
       ),

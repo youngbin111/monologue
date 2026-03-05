@@ -10,12 +10,15 @@ import BookDetail from './BookDetail';
 import GenreSelect from './GenreSelect';
 import MyDokbaekList from './MyDokbaekList';
 import MyPostDetail from "./MyPostDetail";
-import { checkUsernameAvailability, plainFetch } from "./api/fetchers";
+import { checkUsernameAvailability, fetchBooksByCategory, plainFetch } from "./api/fetchers";
 
 const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
   const [viewMode, setViewMode] = useState(0); 
   const [isSignUpSubmitting, setIsSignUpSubmitting] = useState(false);
   const [homeCenterIndex, setHomeCenterIndex] = useState(0);
+  const [homeBooks, setHomeBooks] = useState([]);
+  const [isHomeBooksLoading, setIsHomeBooksLoading] = useState(false);
+  const [homeBooksError, setHomeBooksError] = useState("");
   const [selectedBookId, setSelectedBookId] = useState("");
   const [selectedMyPostId, setSelectedMyPostId] = useState("");
   const [selectedOtherPostId, setSelectedOtherPostId] = useState("");
@@ -96,16 +99,48 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
     "창작", "역사소설", "재테크", "디스토피아", "범죄소설", "행동과학", "인공지능"
   ];
 
-  const homeBooks = [
-    { id: "101", title: "자유의 날개" },
-    { id: "102", title: "여름을 한 입 베어 물었더니" },
-    { id: "103", title: "시창작론" },
-    { id: "104", title: "회색 인간" },
-    { id: "105", title: "아몬드" },
-  ];
+  useEffect(() => {
+    let isCancelled = false;
+
+    const run = async () => {
+      try {
+        setIsHomeBooksLoading(true);
+        setHomeBooksError("");
+        const result = await fetchBooksByCategory({
+          category: "01",
+          limit: 5,
+        });
+        if (isCancelled) return;
+        const normalized = Array.isArray(result.results)
+          ? result.results
+              .filter((book) => book?.id && book?.title)
+              .map((book) => ({
+                id: `${book.id}`,
+                title: book.title,
+                cover: book.cover ?? null,
+              }))
+          : [];
+        setHomeBooks(normalized);
+      } catch (error) {
+        if (isCancelled) return;
+        setHomeBooks([]);
+        setHomeBooksError(error.message || "추천 도서를 불러오지 못했습니다.");
+      } finally {
+        if (!isCancelled) {
+          setIsHomeBooksLoading(false);
+        }
+      }
+    };
+
+    run();
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
 
   const getHomeBookAt = (offset) => {
     const length = homeBooks.length;
+    if (length === 0) return null;
     return homeBooks[(homeCenterIndex + offset + length) % length];
   };
 
@@ -134,6 +169,7 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
 
   const moveHomeCarousel = (step) => {
     const length = homeBooks.length;
+    if (length === 0) return;
     setHomeCenterIndex((prev) => (prev + step + length) % length);
   };
 
@@ -328,10 +364,29 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
           {/* [0] 홈 화면 */}
           {viewMode === 0 && (
             <div className="home-screen-content">
+              {isHomeBooksLoading ? (
+                <p className="home-book-empty">추천 도서를 불러오는 중...</p>
+              ) : homeBooksError ? (
+                <p className="home-book-empty">{homeBooksError}</p>
+              ) : homeBooks.length === 0 ? (
+                <p className="home-book-empty">추천 도서가 없습니다.</p>
+              ) : (
               <div className="home-book-slider">
-                <div className="b-card side" onClick={() => openBookDetail(getHomeBookAt(-1).id)} style={{cursor:'pointer'}}>{getHomeBookAt(-1).title}</div>
-                <div className="b-card center" onClick={() => openBookDetail(getHomeBookAt(0).id)} style={{cursor:'pointer'}}>
-                  {getHomeBookAt(0).title}
+                <div className="b-card side" onClick={() => openBookDetail(getHomeBookAt(-1)?.id)} style={{cursor:'pointer'}}>
+                  {getHomeBookAt(-1)?.cover ? (
+                    <img className="b-card-image" src={getHomeBookAt(-1).cover} alt={`${getHomeBookAt(-1).title} 표지`} />
+                  ) : (
+                    <div className="b-card-image b-card-image-empty" />
+                  )}
+                  <div className="b-card-title">{getHomeBookAt(-1)?.title}</div>
+                </div>
+                <div className="b-card center" onClick={() => openBookDetail(getHomeBookAt(0)?.id)} style={{cursor:'pointer'}}>
+                  {getHomeBookAt(0)?.cover ? (
+                    <img className="b-card-image" src={getHomeBookAt(0).cover} alt={`${getHomeBookAt(0).title} 표지`} />
+                  ) : (
+                    <div className="b-card-image b-card-image-empty" />
+                  )}
+                  <div className="b-card-title">{getHomeBookAt(0)?.title}</div>
                   <button
                     type="button"
                     className="home-slide-arrow left"
@@ -355,8 +410,16 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
                     ›
                   </button>
                 </div>
-                <div className="b-card side" onClick={() => openBookDetail(getHomeBookAt(1).id)} style={{cursor:'pointer'}}>{getHomeBookAt(1).title}</div>
+                <div className="b-card side" onClick={() => openBookDetail(getHomeBookAt(1)?.id)} style={{cursor:'pointer'}}>
+                  {getHomeBookAt(1)?.cover ? (
+                    <img className="b-card-image" src={getHomeBookAt(1).cover} alt={`${getHomeBookAt(1).title} 표지`} />
+                  ) : (
+                    <div className="b-card-image b-card-image-empty" />
+                  )}
+                  <div className="b-card-title">{getHomeBookAt(1)?.title}</div>
+                </div>
               </div>
+              )}
               <div className="home-bottom-reviews">
                 <h3>다른 독백들</h3>
                 <div className="review-grid-home">

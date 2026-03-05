@@ -1,45 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./MyDokbaek.css";
-import { authFetch, deleteMyPost, searchBooks, updateMyPost } from "./api/fetchers";
-
-// 샘플 책 데이터
-const SAMPLE_BOOKS = [
-  {
-    id: "b1",
-    title: "아몬드",
-    author: "손원평",
-    cover:
-      "https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: "b2",
-    title: "오만과 편견",
-    author: "제인 오스틴",
-    cover:
-      "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: "b3",
-    title: "어린 왕자",
-    author: "앙투안 드 생텍쥐페리",
-    cover:
-      "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: "b4",
-    title: "1984",
-    author: "조지 오웰",
-    cover:
-      "https://images.unsplash.com/photo-1455885666463-5f25a39a3daf?auto=format&fit=crop&w=600&q=80",
-  },
-  {
-    id: "b5",
-    title: "군주론",
-    author: "니콜로 마키아벨리",
-    cover:
-      "https://images.unsplash.com/photo-1524578271613-d550eacf6093?auto=format&fit=crop&w=600&q=80",
-  },
-];
+import { authFetch, deleteMyPost, fetchBooksByCategory, searchBooks, updateMyPost } from "./api/fetchers";
 
 function StarRating({ value, onChange }) {
   const [hover, setHover] = useState(0);
@@ -175,7 +136,11 @@ function BookSearchModal({ isOpen, onClose, books, onSelect, limit = 5, searchUr
                   onClose();
                 }}
               >
-                <img className="bookThumb" src={b.cover} alt={`${b.title} 표지`} />
+                {b.cover ? (
+                  <img className="bookThumb" src={b.cover} alt={`${b.title} 표지`} />
+                ) : (
+                  <div className="bookThumb" aria-hidden="true" />
+                )}
                 <div className="bookMeta">
                   <div className="bookTitle">{b.title}</div>
                   <div className="bookAuthor">{b.author}</div>
@@ -199,6 +164,7 @@ function BookSearchModal({ isOpen, onClose, books, onSelect, limit = 5, searchUr
 export default function MyDokbaek({ onFinish, initialPost = null, onCancelEdit }) {
   const [selectedBook, setSelectedBook] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalBooks, setModalBooks] = useState([]);
   const [isPublic, setIsPublic] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -228,6 +194,29 @@ export default function MyDokbaek({ onFinish, initialPost = null, onCancelEdit }
     setIsPublic(Boolean(initialPost?.is_public));
     setReviewText(initialPost?.content ?? "");
   }, [initialPost, isEditMode]);
+
+  useEffect(() => {
+    let isCancelled = false;
+
+    const run = async () => {
+      try {
+        const result = await fetchBooksByCategory({
+          category: "01",
+          limit: 10,
+        });
+        if (isCancelled) return;
+        setModalBooks(Array.isArray(result.results) ? result.results : []);
+      } catch (error) {
+        if (isCancelled) return;
+        setModalBooks([]);
+      }
+    };
+
+    run();
+    return () => {
+      isCancelled = true;
+    };
+  }, []);
 
   // 책 선택 + 리뷰 작성이 되어야 버튼이 활성화됩니다.
   const canFinish = Boolean(selectedBook) && Boolean(reviewText.trim());
@@ -353,7 +342,7 @@ export default function MyDokbaek({ onFinish, initialPost = null, onCancelEdit }
           <div className="contentRow">
             <div className="coverCol">
               <div className="coverFrame">
-                {selectedBook ? (
+                {selectedBook && selectedBook.cover ? (
                   <img className="coverImg" src={selectedBook.cover} alt={`${selectedBook.title} 표지`} />
                 ) : (
                   <div className="coverPlaceholder">
@@ -461,7 +450,7 @@ export default function MyDokbaek({ onFinish, initialPost = null, onCancelEdit }
       <BookSearchModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        books={SAMPLE_BOOKS}
+        books={modalBooks}
         onSelect={setSelectedBook}
       />
     </div>

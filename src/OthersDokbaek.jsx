@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./OthersDokbaek.css";
-import { fetchPublicPostDetail } from "./api/fetchers";
+import { fetchBookDetail, fetchPublicPostDetail } from "./api/fetchers";
 
 export default function OthersDokbaek({ postId, onGoSignUp, onOpenBook }) {
   const [post, setPost] = useState(null);
+  const [book, setBook] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -24,6 +25,7 @@ export default function OthersDokbaek({ postId, onGoSignUp, onOpenBook }) {
         const detail = await fetchPublicPostDetail({ id });
         if (isCancelled) return;
         setPost(detail);
+        setBook(null);
       } catch (error) {
         if (isCancelled) return;
         setPost(null);
@@ -41,6 +43,31 @@ export default function OthersDokbaek({ postId, onGoSignUp, onOpenBook }) {
     };
   }, [postId]);
 
+  useEffect(() => {
+    let isCancelled = false;
+    const bookId = `${post?.book_id ?? ""}`.trim();
+    if (!bookId) {
+      setBook(null);
+      return;
+    }
+
+    const run = async () => {
+      try {
+        const detail = await fetchBookDetail({ id: bookId });
+        if (isCancelled) return;
+        setBook(detail);
+      } catch (error) {
+        if (isCancelled) return;
+        setBook(null);
+      }
+    };
+
+    run();
+    return () => {
+      isCancelled = true;
+    };
+  }, [post?.book_id]);
+
   const handleExit = () => {
     alert("독백 보기를 종료합니다");
     if (typeof onGoSignUp === "function") onGoSignUp();
@@ -52,6 +79,9 @@ export default function OthersDokbaek({ postId, onGoSignUp, onOpenBook }) {
     if (Number.isNaN(date.getTime())) return isoDate;
     return date.toLocaleString("ko-KR");
   };
+
+  const coverImage = book?.coverImage || "http://monologue.ehdgus.com/api/img/S000216796615.jpg";
+  const coverAlt = `${post?.book_title ?? "책"} 표지`;
 
   return (
     /* SignUpProcess의 right-fixed-section 내부에 표시됩니다 */
@@ -78,8 +108,8 @@ export default function OthersDokbaek({ postId, onGoSignUp, onOpenBook }) {
               <div className="odCoverFrame">
                 <img
                   className="odCoverImg"
-                  src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?auto=format&fit=crop&w=900&q=80"
-                  alt="Clean Code 표지"
+                  src={coverImage}
+                  alt={coverAlt}
                 />
               </div>
             </div>

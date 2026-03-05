@@ -16,33 +16,6 @@ export default function BookRecommend({
   preferredCategoryCode = "01",
   isLoggedIn = false,
 }) {
-  // 책 데이터 목록
-  const books = useMemo(
-    () => [
-      {
-        id: "b1",
-        title: "자유의 날개",
-        cover: "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=900&q=80",
-      },
-      {
-        id: "b2",
-        title: "여름을 한 입 베어 물었더니",
-        cover: "https://images.unsplash.com/photo-1529655683826-aba9b3e77383?auto=format&fit=crop&w=900&q=80",
-      },
-      {
-        id: "b3",
-        title: "시창작개론",
-        cover: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&w=900&q=80",
-      },
-      {
-        id: "b4",
-        title: "토마토 달려면",
-        cover: "https://images.unsplash.com/photo-1519682337058-a94d519337bc?auto=format&fit=crop&w=900&q=80",
-      },
-    ],
-    []
-  );
-
   const [query, setQuery] = useState("");
   const [picked, setPicked] = useState(null);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
@@ -105,17 +78,17 @@ export default function BookRecommend({
   const suggestions = useMemo(() => {
     const q = query.trim().toLowerCase();
     if (!q) return [];
-    return books
+    return categoryBooks
       .filter((b) => b.title.toLowerCase().includes(q))
       .slice(0, 6);
-  }, [books, query]);
+  }, [categoryBooks, query]);
 
   const pickBook = (book) => {
     setPicked(book);
     setQuery(book.title);
   };
 
-  const recommendedBooks = categoryBooks.length > 0 ? categoryBooks : books;
+  const recommendedBooks = categoryBooks;
 
   const carouselBooks = useMemo(() => {
     const base = recommendedBooks;
@@ -123,6 +96,11 @@ export default function BookRecommend({
     const rest = base.filter((b) => b.id !== picked.id);
     return [rest[0], picked, rest[1], rest[2]].filter(Boolean);
   }, [recommendedBooks, picked]);
+
+  const secondaryBooks = useMemo(() => {
+    if (recommendedBooks.length <= 1) return recommendedBooks;
+    return [...recommendedBooks.slice(1), recommendedBooks[0]];
+  }, [recommendedBooks]);
 
   return (
     <div className="br-container-inline">
@@ -173,6 +151,9 @@ export default function BookRecommend({
           {!isCategoryLoading && categoryError && (
             <p className="br-error-text">{categoryError}</p>
           )}
+          {!isCategoryLoading && !categoryError && carouselBooks.length === 0 && (
+            <p className="br-load-text">추천 도서가 없습니다.</p>
+          )}
           <div className="br-carousel">
             {carouselBooks.map((b, idx) => (
               <div
@@ -200,8 +181,11 @@ export default function BookRecommend({
         {/* 섹션 2: 랜덤 추천 */}
         <section className="br-section">
           <h3 className="br-title">랜덤 책 추천: 오늘은 이런 책 어떤신가요?</h3>
+          {!isCategoryLoading && !categoryError && secondaryBooks.length === 0 && (
+            <p className="br-load-text">추천 도서가 없습니다.</p>
+          )}
           <div className="br-carousel">
-            {books.map((b, idx) => (
+            {secondaryBooks.map((b, idx) => (
               <div
                 key={b.id}
                 className={["br-card", idx === 1 ? "is-center" : "is-side"].join(" ")}
@@ -224,7 +208,7 @@ export default function BookRecommend({
       <BookSearchModal
         isOpen={isSearchModalOpen}
         onClose={() => setIsSearchModalOpen(false)}
-        books={books}
+        books={recommendedBooks}
         onSelect={(book) => pickBook(book)}
       />
     </div>
