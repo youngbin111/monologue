@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import "./MyDokbaek.css";
-import { authFetch, searchBooks } from "./api/fetchers";
+import { authFetch, deleteMyPost, searchBooks, updateMyPost } from "./api/fetchers";
 
 // 샘플 책 데이터
 const SAMPLE_BOOKS = [
@@ -196,7 +196,7 @@ function BookSearchModal({ isOpen, onClose, books, onSelect, limit = 5, searchUr
   );
 }
 
-export default function MyDokbaek({ onFinish }) {
+export default function MyDokbaek({ onFinish, initialPost = null, onCancelEdit }) {
   const [selectedBook, setSelectedBook] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPublic, setIsPublic] = useState(true);
@@ -205,6 +205,7 @@ export default function MyDokbaek({ onFinish }) {
   const [rating, setRating] = useState(0);
   const [hashtagLine, setHashtagLine] = useState("");
   const [reviewText, setReviewText] = useState("");
+  const isEditMode = Boolean(initialPost?.id);
 
   const pickWordFromOneLine = (line) => {
     const candidates = String(line ?? "")
@@ -214,6 +215,19 @@ export default function MyDokbaek({ onFinish }) {
 
     return candidates[0] ?? "";
   };
+
+  useEffect(() => {
+    if (!isEditMode) return;
+
+    setSelectedBook({
+      id: initialPost?.book_id ?? initialPost?.bookId ?? `post-${initialPost?.id}`,
+      title: initialPost?.book_title ?? "",
+      author: initialPost?.author ?? "",
+      cover: initialPost?.cover_image ?? initialPost?.cover ?? null,
+    });
+    setIsPublic(Boolean(initialPost?.is_public));
+    setReviewText(initialPost?.content ?? "");
+  }, [initialPost, isEditMode]);
 
   // 책 선택 + 리뷰 작성이 되어야 버튼이 활성화됩니다.
   const canFinish = Boolean(selectedBook) && Boolean(reviewText.trim());
@@ -234,42 +248,53 @@ export default function MyDokbaek({ onFinish }) {
 
     try {
       setIsSubmitting(true);
-      const response = await authFetch(postUrl, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
-
-      let data = null;
-      try {
-        data = await response.json();
-      } catch (parseError) {
-        data = null;
-      }
-
-      if (!response.ok) {
-        if (response.status === 401) {
-          throw new Error("인증이 만료되었습니다. 다시 로그인해주세요.");
+      if (isEditMode) {
+        const updated = await updateMyPost({
+          id: initialPost.id,
+          payload,
+        });
+        if (!updated?.id) {
+          throw new Error("독서록 수정 응답 형식이 올바르지 않습니다.");
         }
-        const fieldErrors = data && typeof data === "object"
-          ? Object.values(data).flat?.().join?.("\n")
-          : "";
-        throw new Error(
-          fieldErrors ||
-          data?.message ||
-          data?.detail ||
-          (response.status === 400
-            ? "독서록 입력값이 올바르지 않습니다."
-            : `요청 실패: ${response.status}`)
-        );
-      }
+        savedPost = updated;
+      } else {
+        const response = await authFetch(postUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        });
 
-      if (!data?.id || !data?.book_title) {
-        throw new Error("독서록 저장 응답 형식이 올바르지 않습니다.");
+        let data = null;
+        try {
+          data = await response.json();
+        } catch (parseError) {
+          data = null;
+        }
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            throw new Error("인증이 만료되었습니다. 다시 로그인해주세요.");
+          }
+          const fieldErrors = data && typeof data === "object"
+            ? Object.values(data).flat?.().join?.("\n")
+            : "";
+          throw new Error(
+            fieldErrors ||
+            data?.message ||
+            data?.detail ||
+            (response.status === 400
+              ? "독서록 입력값이 올바르지 않습니다."
+              : `요청 실패: ${response.status}`)
+          );
+        }
+
+        if (!data?.id || !data?.book_title) {
+          throw new Error("독서록 저장 응답 형식이 올바르지 않습니다.");
+        }
+        savedPost = data;
       }
-      savedPost = data;
 
       const pickedWord = pickWordFromOneLine(hashtagLine);
       if (pickedWord) {
@@ -285,10 +310,30 @@ export default function MyDokbaek({ onFinish }) {
       setIsSubmitting(false);
     }
 
-    alert("저장되었습니다!");
+    alert(isEditMode ? "수정되었습니다!" : "저장되었습니다!");
 
     // Save result payload so list can reflect immediately even before next fetch cycle.
     if (typeof onFinish === "function") onFinish(savedPost);
+  };
+
+  const handleDelete = async () => {
+    if (!isEditMode || !initialPost?.id) return;
+
+    const shouldDelete = window.confirm("정말 삭제하겠습니까?");
+    if (!shouldDelete) return;
+
+    try {
+      setIsSubmitting(true);
+      await deleteMyPost({ id: initialPost.id });
+      alert("삭제되었습니다.");
+      if (typeof onFinish === "function") {
+        onFinish(null, { deletedId: initialPost.id });
+      }
+    } catch (error) {
+      alert(error.message || "삭제에 실패했습니다.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -386,9 +431,29 @@ export default function MyDokbaek({ onFinish }) {
                 onClick={handleFinish}
                 disabled={!canFinish || isSubmitting}
               >
-                {isSubmitting ? "저장 중..." : "독백 종료"}
+                {isSubmitting ? "저장 중..." : isEditMode ? "수정 완료" : "독백 종료"}
               </button>
             </div>
+            {isEditMode ? (
+              <div className="editActionRow">
+                <button
+                  type="button"
+                  className="cancelEditBtn"
+                  onClick={() => onCancelEdit?.()}
+                  disabled={isSubmitting}
+                >
+                  취소
+                </button>
+                <button
+                  type="button"
+                  className="deleteBtn"
+                  onClick={handleDelete}
+                  disabled={isSubmitting}
+                >
+                  삭제
+                </button>
+              </div>
+            ) : null}
           </div>
         </section>
       </main>

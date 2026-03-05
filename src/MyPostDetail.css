@@ -55,6 +55,26 @@
   font-size: 12px;
 }
 
+.mpd-actions {
+  margin-top: 14px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.mpd-edit-btn {
+  border: 1px solid #a79d8e;
+  background: #f2ece1;
+  color: #4f4639;
+  border-radius: 10px;
+  padding: 7px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.mpd-edit-btn:hover {
+  border-color: #7d705c;
+}
+
 .mpd-content {
   margin-top: 20px;
   white-space: pre-wrap;

@@ -299,6 +299,36 @@
   cursor: not-allowed;
 }
 
+.editActionRow {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.cancelEditBtn,
+.deleteBtn {
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  border-radius: 10px;
+  background: #fff;
+  padding: 8px 14px;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.cancelEditBtn:hover {
+  border-color: #666;
+}
+
+.deleteBtn {
+  color: #8b2c2c;
+  border-color: rgba(139, 44, 44, 0.3);
+}
+
+.deleteBtn:hover {
+  background: #fff2f2;
+}
+
 /* MODAL 스타일은 기존과 동일하게 유지하거나 
    독립적으로 작동하므로 그대로 두셔도 무방합니다. */
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import "./MyPostDetail.css";
 import { fetchMyPostDetail } from "./api/fetchers";
 
-export default function MyPostDetail({ postId, onBack }) {
+export default function MyPostDetail({ postId, onBack, onEditPost }) {
   const [post, setPost] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -65,6 +65,15 @@ export default function MyPostDetail({ postId, onBack }) {
               <span>{post.user ?? "-"}</span>
               <span>{formatDate(post.created_at)}</span>
               <span>{post.is_public ? "공개" : "비공개"}</span>
+            </div>
+            <div className="mpd-actions">
+              <button
+                type="button"
+                className="mpd-edit-btn"
+                onClick={() => onEditPost?.(post)}
+              >
+                편집
+              </button>
             </div>
           </header>
 

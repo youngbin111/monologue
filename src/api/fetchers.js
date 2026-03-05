@@ -364,7 +364,7 @@ export async function fetchBooksByCategory({ category, limit = 5, url } = {}) {
 }
 
 export async function fetchMyPosts({ category, className, url } = {}) {
-  const baseUrl = url ?? process.env.REACT_APP_MY_POSTS_API_URL ?? `${getApiBase()}/api/my-posts/`;
+  const baseUrl = url ?? process.env.REACT_APP_MY_POSTS_API_URL ?? `${getApiBase()}/api/posts/my-posts/`;
   const query = new URLSearchParams();
 
   if (category) query.set("category", String(category));
@@ -419,7 +419,7 @@ export async function fetchMyPostDetail({ id, category, className, url } = {}) {
     throw new Error("독서록 id가 필요합니다.");
   }
 
-  const baseUrl = url ?? process.env.REACT_APP_MY_POST_DETAIL_API_URL ?? `${getApiBase()}/api/my-posts`;
+  const baseUrl = url ?? process.env.REACT_APP_MY_POST_DETAIL_API_URL ?? `${getApiBase()}/api/posts/my-posts`;
   const normalizedBaseUrl = baseUrl.endsWith("/") ? baseUrl.slice(0, -1) : baseUrl;
   const query = new URLSearchParams();
 
@@ -429,17 +429,40 @@ export async function fetchMyPostDetail({ id, category, className, url } = {}) {
   const detailUrl = `${normalizedBaseUrl}/${encodeURIComponent(postId)}/`;
   const targetUrl = query.toString() ? `${detailUrl}?${query.toString()}` : detailUrl;
   let response;
+  let data = null;
   try {
     response = await authFetch(targetUrl, { method: "GET" });
   } catch (error) {
     throw new Error(toMyPostsLoginMessage(error, "내 독서록 상세를 불러오지 못했습니다."));
   }
 
-  let data = null;
   try {
     data = await response.json();
   } catch (parseError) {
     data = null;
+  }
+
+  // Some backends may not provide /api/my-posts/{id}/ and expose /api/posts/{id}/ only.
+  if (response.status === 404) {
+    const postsBase = process.env.REACT_APP_POST_DETAIL_API_URL ?? `${getApiBase()}/api/posts`;
+    const normalizedPostsBase = postsBase.endsWith("/") ? postsBase.slice(0, -1) : postsBase;
+    const fallbackUrl = `${normalizedPostsBase}/${encodeURIComponent(postId)}/`;
+
+    try {
+      const fallbackResponse = await authFetch(fallbackUrl, { method: "GET" });
+      let fallbackData = null;
+      try {
+        fallbackData = await fallbackResponse.json();
+      } catch (parseError) {
+        fallbackData = null;
+      }
+
+      if (fallbackResponse.ok && fallbackData && typeof fallbackData === "object") {
+        return fallbackData;
+      }
+    } catch (fallbackError) {
+      // Keep original 404 handling below.
+    }
   }
 
   if (!response.ok) {
@@ -460,6 +483,104 @@ export async function fetchMyPostDetail({ id, category, className, url } = {}) {
   }
 
   return data;
+}
+
+async function tryParseJson(response) {
+  try {
+    return await response.json();
+  } catch (parseError) {
+    return null;
+  }
+}
+
+function extractApiErrorMessage(data, fallback) {
+  const fieldErrors =
+    data && typeof data === "object"
+      ? Object.values(data).flat?.().join?.("\n")
+      : "";
+
+  return fieldErrors || data?.message || data?.detail || fallback;
+}
+
+async function mutateMyPostWithFallback({ id, method, payload, url, fallbackUrl, fallbackErrorMessage }) {
+  const postId = `${id ?? ""}`.trim();
+  if (!postId) {
+    throw new Error("독서록 id가 필요합니다.");
+  }
+
+  const myPostsBase = url ?? process.env.REACT_APP_MY_POST_DETAIL_API_URL ?? `${getApiBase()}/api/posts/my-posts`;
+  const normalizedMyPostsBase = myPostsBase.endsWith("/") ? myPostsBase.slice(0, -1) : myPostsBase;
+  const myPostsTargetUrl = `${normalizedMyPostsBase}/${encodeURIComponent(postId)}/`;
+
+  const postsBase = fallbackUrl ?? process.env.REACT_APP_POST_DETAIL_API_URL ?? `${getApiBase()}/api/posts`;
+  const normalizedPostsBase = postsBase.endsWith("/") ? postsBase.slice(0, -1) : postsBase;
+  const postsTargetUrl = `${normalizedPostsBase}/${encodeURIComponent(postId)}/`;
+
+  const requestOptions = {
+    method,
+    headers: payload
+      ? {
+          "Content-Type": "application/json",
+        }
+      : {},
+    ...(payload ? { body: JSON.stringify(payload) } : {}),
+  };
+
+  let response;
+  try {
+    response = await authFetch(myPostsTargetUrl, requestOptions);
+  } catch (error) {
+    throw new Error(toMyPostsLoginMessage(error, fallbackErrorMessage));
+  }
+
+  let data = await tryParseJson(response);
+  if (response.ok) {
+    return data;
+  }
+
+  // Backends without /api/my-posts/{id}/ may only expose /api/posts/{id}/.
+  if (response.status === 404) {
+    const fallbackResponse = await authFetch(postsTargetUrl, requestOptions);
+    const fallbackData = await tryParseJson(fallbackResponse);
+    if (fallbackResponse.ok) {
+      return fallbackData;
+    }
+
+    throw new Error(extractApiErrorMessage(fallbackData, fallbackErrorMessage));
+  }
+
+  throw new Error(extractApiErrorMessage(data, fallbackErrorMessage));
+}
+
+export async function updateMyPost({ id, payload, url, fallbackUrl } = {}) {
+  const updatePayload = payload ?? {};
+  const data = await mutateMyPostWithFallback({
+    id,
+    method: "PATCH",
+    payload: updatePayload,
+    url,
+    fallbackUrl,
+    fallbackErrorMessage: "독서록 수정에 실패했습니다.",
+  });
+
+  if (!data || typeof data !== "object") {
+    throw new Error("독서록 수정 응답 형식이 올바르지 않습니다.");
+  }
+
+  return data;
+}
+
+export async function deleteMyPost({ id, url, fallbackUrl } = {}) {
+  await mutateMyPostWithFallback({
+    id,
+    method: "DELETE",
+    payload: null,
+    url,
+    fallbackUrl,
+    fallbackErrorMessage: "독서록 삭제에 실패했습니다.",
+  });
+
+  return true;
 }
 
 export async function fetchPublicPosts({ url } = {}) {

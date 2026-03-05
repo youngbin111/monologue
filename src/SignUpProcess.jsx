@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './SignUpProcess.css';
 import SignInProcess from './SignInProcess'; 
 import OthersDokbaek from './OthersDokbaek';
@@ -19,7 +19,9 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
   const [selectedBookId, setSelectedBookId] = useState("");
   const [selectedMyPostId, setSelectedMyPostId] = useState("");
   const [selectedOtherPostId, setSelectedOtherPostId] = useState("");
+  const [editingMyPost, setEditingMyPost] = useState(null);
   const [latestMyPost, setLatestMyPost] = useState(null);
+  const skipNextHistoryPushRef = useRef(false);
   
   const [formData, setFormData] = useState({ 
     name: '', phone: '', nickname: '', id: '', pw: '', confirmPw: '', email: '' 
@@ -27,6 +29,66 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
   const [selectedGenres, setSelectedGenres] = useState([]);
   const [isIdChecked, setIsIdChecked] = useState(false);
   const [isIdChecking, setIsIdChecking] = useState(false);
+
+  useEffect(() => {
+    const parseViewModeFromHash = () => {
+      const match = window.location.hash.match(/view=(\d+)/);
+      if (!match) return null;
+      const parsed = Number(match[1]);
+      return Number.isInteger(parsed) ? parsed : null;
+    };
+
+    const initialViewMode =
+      typeof window.history.state?.viewMode === "number"
+        ? window.history.state.viewMode
+        : parseViewModeFromHash() ?? 0;
+    if (initialViewMode !== viewMode) {
+      setViewMode(initialViewMode);
+    }
+
+    const baseUrl = `${window.location.pathname}${window.location.search}`;
+    window.history.replaceState(
+      { ...(window.history.state ?? {}), viewMode: initialViewMode },
+      "",
+      `${baseUrl}#view=${initialViewMode}`
+    );
+
+    const onPopState = (event) => {
+      const nextViewMode =
+        typeof event.state?.viewMode === "number"
+          ? event.state.viewMode
+          : parseViewModeFromHash();
+      if (typeof nextViewMode === "number") {
+        skipNextHistoryPushRef.current = true;
+        setViewMode(nextViewMode);
+      }
+    };
+
+    window.addEventListener("popstate", onPopState);
+    return () => {
+      window.removeEventListener("popstate", onPopState);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (skipNextHistoryPushRef.current) {
+      skipNextHistoryPushRef.current = false;
+      return;
+    }
+
+    const currentViewMode = window.history.state?.viewMode;
+    if (currentViewMode === viewMode) {
+      return;
+    }
+
+    const baseUrl = `${window.location.pathname}${window.location.search}`;
+    window.history.pushState(
+      { ...(window.history.state ?? {}), viewMode },
+      "",
+      `${baseUrl}#view=${viewMode}`
+    );
+  }, [viewMode]);
 
   const allGenres = [
     "공학", "자연과학", "소설", "유아/어린이/청소년", "의학", "인문/사회", "탐정소설",
@@ -236,10 +298,10 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
           </div>
           
           {/* 홈(0), 마이페이지(4), 다른독백들목록(7), 타인의독백상세(5), 나의독백(6) 등일 때 사이드바 메뉴 표시 */}
-          {(viewMode === 0 || viewMode === 2 || viewMode === 4 || viewMode === 5 || viewMode === 6 || viewMode === 7 || viewMode === 8 || viewMode === 9 || viewMode === 10 || viewMode === 11) && (
+          {(viewMode === 0 || viewMode === 2 || viewMode === 4 || viewMode === 5 || viewMode === 6 || viewMode === 7 || viewMode === 8 || viewMode === 9 || viewMode === 10 || viewMode === 11 || viewMode === 12) && (
             <>
               <nav className="side-nav-menu">
-                <p onClick={() => setViewMode(10)} style={{cursor:'pointer', fontWeight: (viewMode === 10 || viewMode === 6) ? 'bold' : 'normal'}}>나의 독백</p>
+                <p onClick={() => setViewMode(10)} style={{cursor:'pointer', fontWeight: (viewMode === 10 || viewMode === 6 || viewMode === 11 || viewMode === 12) ? 'bold' : 'normal'}}>나의 독백</p>
                 {/* [수정] 다른 독백들 클릭 시 목록 화면인 7번으로 이동하도록 수정 */}
                 <p onClick={() => setViewMode(7)} style={{cursor:'pointer', fontWeight: (viewMode === 7 || viewMode === 5) ? 'bold' : 'normal'}}>다른 독백들</p>
                 {/* 기존 나의 책추천(7번) 메뉴는 기능상 중복되거나 다른 번호로 할당이 필요할 수 있으나, 요청대로 로직 유지를 위해 7번을 목록으로 활용 */}
@@ -351,8 +413,12 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
           {/* [6] 나의 독백 작성 화면 */}
           {viewMode === 6 && (
             <MyDokbaek
-              onFinish={(createdPost) => {
-                setLatestMyPost(createdPost ?? null);
+              onFinish={(createdPost, meta = {}) => {
+                if (meta?.deletedId) {
+                  setLatestMyPost(null);
+                } else {
+                  setLatestMyPost(createdPost ?? null);
+                }
                 setViewMode(10);
               }}
               onOpenBookDetail={openBookDetail}
@@ -373,6 +439,32 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
             <MyPostDetail
               postId={selectedMyPostId}
               onBack={() => setViewMode(10)}
+              onEditPost={(post) => {
+                setEditingMyPost(post ?? null);
+                setViewMode(12);
+              }}
+            />
+          )}
+
+          {/* [12] 나의 독서록 수정 */}
+          {viewMode === 12 && (
+            <MyDokbaek
+              initialPost={editingMyPost}
+              onCancelEdit={() => setViewMode(11)}
+              onFinish={(updatedPost, meta = {}) => {
+                if (meta?.deletedId) {
+                  setEditingMyPost(null);
+                  setSelectedMyPostId("");
+                  setLatestMyPost(null);
+                  setViewMode(10);
+                  return;
+                }
+
+                setEditingMyPost(updatedPost ?? null);
+                setLatestMyPost(updatedPost ?? null);
+                setViewMode(11);
+              }}
+              onOpenBookDetail={openBookDetail}
             />
           )}
 
