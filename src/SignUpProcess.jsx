@@ -12,6 +12,22 @@ import MyDokbaekList from './MyDokbaekList';
 import MyPostDetail from "./MyPostDetail";
 import { checkUsernameAvailability, fetchBooksByCategory, plainFetch } from "./api/fetchers";
 
+const SELECTED_GENRES_STORAGE_KEY = "selectedGenres";
+
+function getStoredSelectedGenres() {
+  try {
+    const raw = localStorage.getItem(SELECTED_GENRES_STORAGE_KEY);
+    if (!raw) return [];
+    const parsed = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+    return parsed
+      .map((genre) => String(genre ?? "").trim())
+      .filter(Boolean);
+  } catch (error) {
+    return [];
+  }
+}
+
 const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
   const [viewMode, setViewMode] = useState(0); 
   const [isSignUpSubmitting, setIsSignUpSubmitting] = useState(false);
@@ -29,9 +45,24 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
   const [formData, setFormData] = useState({ 
     name: '', phone: '', nickname: '', id: '', pw: '', confirmPw: '', email: '' 
   });
-  const [selectedGenres, setSelectedGenres] = useState([]);
+  const [selectedGenres, setSelectedGenres] = useState(() => getStoredSelectedGenres());
   const [isIdChecked, setIsIdChecked] = useState(false);
   const [isIdChecking, setIsIdChecking] = useState(false);
+
+  useEffect(() => {
+    try {
+      if (selectedGenres.length === 0) {
+        localStorage.removeItem(SELECTED_GENRES_STORAGE_KEY);
+        return;
+      }
+      localStorage.setItem(
+        SELECTED_GENRES_STORAGE_KEY,
+        JSON.stringify(selectedGenres)
+      );
+    } catch (error) {
+      // localStorage 저장 실패는 기능 진행에 영향 없도록 무시
+    }
+  }, [selectedGenres]);
 
   useEffect(() => {
     const parseViewModeFromHash = () => {
@@ -423,16 +454,16 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
               <div className="home-bottom-reviews">
                 <h3>다른 독백들</h3>
                 <div className="review-grid-home">
-                  {/* [수정] 홈의 리뷰박스 클릭 시 바로 상세(5)가 아닌 목록(7)으로 가게 하거나 상세(5)로 가게 유지 가능 */}
-                  <div className="r-box" onClick={() => setViewMode(5)} style={{cursor:'pointer'}}>
+                  {/* 홈 리뷰 박스는 목록 화면(7)으로 이동해 실제 postId를 선택하게 합니다. */}
+                  <div className="r-box" onClick={() => setViewMode(7)} style={{cursor:'pointer'}}>
                     <h4>회색인간</h4>
                     <p>담담한 문장이지만 강렬한 메시지...</p>
                   </div>
-                  <div className="r-box" onClick={() => setViewMode(5)} style={{cursor:'pointer'}}>
+                  <div className="r-box" onClick={() => setViewMode(7)} style={{cursor:'pointer'}}>
                     <h4>총,균,쇠</h4>
                     <p>인류 문명의 흐름을 꿰뚫는 통찰...</p>
                   </div>
-                  <div className="r-box" onClick={() => setViewMode(5)} style={{cursor:'pointer'}}>
+                  <div className="r-box" onClick={() => setViewMode(7)} style={{cursor:'pointer'}}>
                     <h4>메타버스</h4>
                     <p>가상과 현실의 경계가 무너지는 세상...</p>
                   </div>
@@ -538,6 +569,7 @@ const SignUpProcess = ({ isLoggedIn, onAuthSuccess, onLogout }) => {
               onGoSignUp={() => setViewMode(0)} 
               onOpenBookDetail={openBookDetail}
               preferredCategoryCode={getPreferredCategoryCode()}
+              selectedGenres={selectedGenres}
               isLoggedIn={isLoggedIn}
             />
           )}

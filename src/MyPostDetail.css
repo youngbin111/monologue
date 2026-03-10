@@ -4,7 +4,7 @@
   overflow-y: auto;
   background: #e9e7e3;
   box-sizing: border-box;
-  padding: 36px 28px 48px;
+  padding: 56px 28px 68px;
 }
 
 .mpd-back-btn {
@@ -85,7 +85,7 @@
 
 @media (max-width: 700px) {
   .mpd-container {
-    padding: 22px 14px 34px;
+    padding: 36px 14px 46px;
   }
 
   .mpd-card {

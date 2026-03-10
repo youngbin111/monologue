@@ -1,7 +1,40 @@
 import { useEffect, useMemo, useState } from "react";
 import "./BookRecommend.css";
 import BookSearchModal from "./BookSearchModal";
-import { fetchBooksByCategory } from "./api/fetchers";
+import { fetchBooksByCategory, searchBooks } from "./api/fetchers";
+
+function dedupeBooks(books = []) {
+  const map = new Map();
+  books.forEach((book) => {
+    if (!book || !book.title) return;
+    const key = book.id ? `id:${book.id}` : `title:${String(book.title).toLowerCase()}`;
+    if (!map.has(key)) {
+      map.set(key, book);
+    }
+  });
+  return [...map.values()];
+}
+
+function pickRandomBooks(books = [], count = 5) {
+  const copy = [...books];
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy.slice(0, count);
+}
+
+function pickRandomItems(items = [], count = 3) {
+  const copy = [...items];
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy.slice(0, count);
+}
+
+const SAME_ORIGIN_BOOK_SEARCH_URL = "/api/books/search";
+const RANDOM_CATEGORY_CODES = ["01", "0111", "0113", "0114", "03", "0301"];
 
 /**
  * props
@@ -14,14 +47,21 @@ export default function BookRecommend({
   onGoSignUp,
   onOpenBookDetail,
   preferredCategoryCode = "01",
+  selectedGenres = [],
   isLoggedIn = false,
 }) {
   const [query, setQuery] = useState("");
   const [picked, setPicked] = useState(null);
   const [isSearchModalOpen, setIsSearchModalOpen] = useState(false);
   const [categoryBooks, setCategoryBooks] = useState([]);
+  const [randomBooks, setRandomBooks] = useState([]);
   const [isCategoryLoading, setIsCategoryLoading] = useState(false);
   const [categoryError, setCategoryError] = useState("");
+  const [randomError, setRandomError] = useState("");
+  const selectedGenreKeywords = useMemo(
+    () => selectedGenres.map((genre) => String(genre ?? "").trim()).filter(Boolean),
+    [selectedGenres]
+  );
 
   const quoteText = useMemo(() => {
     if (!isLoggedIn) return "";
@@ -52,16 +92,120 @@ export default function BookRecommend({
       try {
         setIsCategoryLoading(true);
         setCategoryError("");
-        const result = await fetchBooksByCategory({
-          category: preferredCategoryCode,
-          limit: 5,
-        });
+        setRandomError("");
+
+        const loadGenreBooks = async () => {
+          const keywordResultBooks = [];
+
+          if (selectedGenreKeywords.length > 0) {
+            const keywordResults = await Promise.allSettled(
+              selectedGenreKeywords.map((keyword) =>
+                searchBooks({
+                  keyword,
+                  limit: 10,
+                  // Avoid CORS issues from external absolute search URL env.
+                  url: SAME_ORIGIN_BOOK_SEARCH_URL,
+                })
+              )
+            );
+
+            keywordResults.forEach((result) => {
+              if (result.status !== "fulfilled") return;
+              const books = Array.isArray(result.value?.results) ? result.value.results : [];
+              keywordResultBooks.push(...books);
+            });
+          }
+
+          const dedupedKeywordBooks = dedupeBooks(keywordResultBooks);
+          if (dedupedKeywordBooks.length > 0) {
+            return pickRandomBooks(dedupedKeywordBooks, 5);
+          }
+
+          const fallback = await fetchBooksByCategory({
+            category: preferredCategoryCode,
+            limit: 20,
+          });
+
+          const dedupedFallbackBooks = dedupeBooks(
+            Array.isArray(fallback?.results) ? fallback.results : []
+          );
+          if (dedupedFallbackBooks.length > 0) {
+            return pickRandomBooks(dedupedFallbackBooks, 5);
+          }
+
+          // Preferred category might be empty; use broad fiction category as final fallback.
+          if (preferredCategoryCode !== "01") {
+            const broadFallback = await fetchBooksByCategory({
+              category: "01",
+              limit: 20,
+            });
+            const dedupedBroadFallbackBooks = dedupeBooks(
+              Array.isArray(broadFallback?.results) ? broadFallback.results : []
+            );
+            return pickRandomBooks(dedupedBroadFallbackBooks, 5);
+          }
+
+          return [];
+        };
+
+        const loadAllRandomBooks = async () => {
+          const randomCategories = pickRandomItems(RANDOM_CATEGORY_CODES, 3);
+          const categoryResults = await Promise.allSettled(
+            randomCategories.map((categoryCode) =>
+              fetchBooksByCategory({
+                category: categoryCode,
+                limit: 10,
+              })
+            )
+          );
+
+          const mergedRandomPool = [];
+          categoryResults.forEach((result) => {
+            if (result.status !== "fulfilled") return;
+            const books = Array.isArray(result.value?.results) ? result.value.results : [];
+            mergedRandomPool.push(...books);
+          });
+
+          const dedupedRandomPool = dedupeBooks(mergedRandomPool);
+          if (dedupedRandomPool.length > 0) {
+            return pickRandomBooks(dedupedRandomPool, 5);
+          }
+
+          const fallback = await fetchBooksByCategory({
+            category: "01",
+            limit: 20,
+          });
+          const dedupedFallbackBooks = dedupeBooks(
+            Array.isArray(fallback?.results) ? fallback.results : []
+          );
+          return pickRandomBooks(dedupedFallbackBooks, 5);
+        };
+
+        const [genreResult, randomResult] = await Promise.allSettled([
+          loadGenreBooks(),
+          loadAllRandomBooks(),
+        ]);
         if (isCancelled) return;
-        setCategoryBooks(result.results);
+
+        if (genreResult.status === "fulfilled") {
+          setCategoryBooks(Array.isArray(genreResult.value) ? genreResult.value : []);
+        } else {
+          setCategoryBooks([]);
+          setCategoryError(genreResult.reason?.message || "추천 도서를 불러오지 못했습니다.");
+        }
+
+        if (randomResult.status === "fulfilled") {
+          setRandomBooks(Array.isArray(randomResult.value) ? randomResult.value : []);
+        } else {
+          setRandomBooks([]);
+          setRandomError(randomResult.reason?.message || "랜덤 추천 도서를 불러오지 못했습니다.");
+        }
       } catch (error) {
         if (isCancelled) return;
         setCategoryBooks([]);
+        setRandomBooks([]);
         setCategoryError(error.message || "추천 도서를 불러오지 못했습니다.");
+        setRandomError(error.message || "랜덤 추천 도서를 불러오지 못했습니다.");
       } finally {
         if (!isCancelled) {
           setIsCategoryLoading(false);
@@ -73,7 +217,7 @@ export default function BookRecommend({
     return () => {
       isCancelled = true;
     };
-  }, [preferredCategoryCode]);
+  }, [preferredCategoryCode, selectedGenreKeywords]);
 
   const suggestions = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -89,6 +233,9 @@ export default function BookRecommend({
   };
 
   const recommendedBooks = categoryBooks;
+  const genreTitleText = selectedGenreKeywords.length > 0
+    ? selectedGenreKeywords.join("/")
+    : "로맨스/성장";
 
   const carouselBooks = useMemo(() => {
     const base = recommendedBooks;
@@ -97,10 +244,7 @@ export default function BookRecommend({
     return [rest[0], picked, rest[1], rest[2]].filter(Boolean);
   }, [recommendedBooks, picked]);
 
-  const secondaryBooks = useMemo(() => {
-    if (recommendedBooks.length <= 1) return recommendedBooks;
-    return [...recommendedBooks.slice(1), recommendedBooks[0]];
-  }, [recommendedBooks]);
+  const secondaryBooks = randomBooks;
 
   return (
     <div className="br-container-inline">
@@ -146,7 +290,7 @@ export default function BookRecommend({
 
         {/* 섹션 1: 장르 추천 */}
         <section className="br-section">
-          <h3 className="br-title">독백님이 좋아하는 로맨스/성장 소설이에요!</h3>
+          <h3 className="br-title">독백님이 좋아하는 {genreTitleText} 소설이에요!</h3>
           {isCategoryLoading && <p className="br-load-text">카테고리 추천을 불러오는 중...</p>}
           {!isCategoryLoading && categoryError && (
             <p className="br-error-text">{categoryError}</p>
@@ -181,7 +325,10 @@ export default function BookRecommend({
         {/* 섹션 2: 랜덤 추천 */}
         <section className="br-section">
           <h3 className="br-title">랜덤 책 추천: 오늘은 이런 책 어떤신가요?</h3>
-          {!isCategoryLoading && !categoryError && secondaryBooks.length === 0 && (
+          {!isCategoryLoading && randomError && (
+            <p className="br-error-text">{randomError}</p>
+          )}
+          {!isCategoryLoading && !randomError && secondaryBooks.length === 0 && (
             <p className="br-load-text">추천 도서가 없습니다.</p>
           )}
           <div className="br-carousel">

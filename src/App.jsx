@@ -40,7 +40,19 @@ function App() {
       try {
         const data = await verifyToken();
         if (data?.user) {
-          localStorage.setItem("currentUser", JSON.stringify(data.user));
+          let storedUser = null;
+          try {
+            const rawStoredUser = localStorage.getItem("currentUser");
+            storedUser = rawStoredUser ? JSON.parse(rawStoredUser) : null;
+          } catch (error) {
+            storedUser = null;
+          }
+
+          const mergedUser = {
+            ...(storedUser && typeof storedUser === "object" ? storedUser : {}),
+            ...data.user,
+          };
+          localStorage.setItem("currentUser", JSON.stringify(mergedUser));
         }
         setIsLoggedIn(true);
       } catch (error) {

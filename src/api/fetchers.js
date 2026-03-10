@@ -791,3 +791,41 @@ export async function verifyToken() {
 
   return data;
 }
+
+export async function fetchMyProfile({ url } = {}) {
+  const profileUrl =
+    url ??
+    process.env.REACT_APP_PROFILE_API_URL ??
+    `${getApiBase()}/api/accounts/profile/`;
+  const response = await authFetch(profileUrl, { method: "GET" });
+
+  let data = null;
+  try {
+    data = await response.json();
+  } catch (parseError) {
+    data = null;
+  }
+
+  if (!response.ok || data?.success === false) {
+    throw new Error(data?.detail || data?.message || "프로필 조회에 실패했습니다.");
+  }
+
+  const rawProfile =
+    data?.profile && typeof data.profile === "object"
+      ? data.profile
+      : data?.user && typeof data.user === "object"
+        ? data.user
+        : data && typeof data === "object"
+          ? data
+          : {};
+
+  const normalizedProfile = { ...rawProfile };
+  if (
+    normalizedProfile.readCount === undefined &&
+    normalizedProfile.read_count !== undefined
+  ) {
+    normalizedProfile.readCount = normalizedProfile.read_count;
+  }
+
+  return normalizedProfile;
+}
