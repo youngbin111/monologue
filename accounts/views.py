@@ -41,8 +41,8 @@ import re
 # 커스텀 Throttle 클래스
 # ============================================
 class LoginRateThrottle(AnonRateThrottle):
-    """로그인 시도를 시간당 5회로 제한"""
-    rate = '5/hour'
+    """로그인 시도를 시간당 100회로 제한"""
+    rate = '100/hour'
 
 
 # ============================================
@@ -386,38 +386,37 @@ def find_id_view(request):
     
     # 전화번호에서 숫자만 추출
     phone_digits = re.sub(r'[^0-9]', '', phone)
-    
+
     try:
-        # 이름과 전화번호 뒤 8자리로 검색
-        profile = Profile.objects.get(
-            user__first_name=name,
-            phone__contains=phone_digits[-8:]
+        # 이름은 대소문자 구분 없이 필터링
+        profiles = Profile.objects.filter(
+            user__first_name__iexact=name
         )
-        
-        username = profile.user.username
-        
-        # 선택: 아이디 일부 마스킹 (보안 강화)
-        # if len(username) > 3:
-        #     masked_username = username[:3] + '*' * (len(username) - 3)
-        # else:
-        #     masked_username = username[0] + '*' * (len(username) - 1)
-        
+
+        matched_profile = None
+
+        for p in profiles:
+            db_phone_digits = re.sub(r'[^0-9]', '', p.phone or "")
+            if db_phone_digits == phone_digits:
+                matched_profile = p
+                break
+
+        if not matched_profile:
+            raise Profile.DoesNotExist
+
+        username = matched_profile.user.username
+
         return Response({
             "success": True,
-            "username": username,  # 또는 masked_username
+            "username": username,
             "message": "아이디를 찾았습니다"
         }, status=status.HTTP_200_OK)
-        
+
     except Profile.DoesNotExist:
         return Response({
             "success": False,
             "message": "일치하는 사용자를 찾을 수 없습니다"
         }, status=status.HTTP_404_NOT_FOUND)
-    except Profile.MultipleObjectsReturned:
-        return Response({
-            "success": False,
-            "message": "여러 계정이 발견되었습니다. 고객센터에 문의하세요"
-        }, status=status.HTTP_400_BAD_REQUEST)
 
 
 # ============================================
@@ -569,6 +568,7 @@ def password_reset_confirm_view(request, uidb64, token):
 def check_username(request):
     """아이디 중복 확인"""
     username = request.query_params.get('username')
+    print(f"--- [DEBUG] 들어온 아이디: {username} ---")
     
     if not username:
         return Response({

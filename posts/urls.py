@@ -7,5 +7,8 @@ urlpatterns = [
     path('<int:pk>/', PostDetailView.as_view()),    # 상세보기 & 수정 & 삭제 (api/posts/1/)
     
     #내 글만 모아보기
-    path('my/', MyPostListView.as_view()),
+    path('my-posts/', MyPostListView.as_view()),
+    
+    # 🔥 여기에 '내 글 상세보기' URL을 추가합니다!
+    path('my-posts/<int:pk>/', PostDetailView.as_view()),
 ]

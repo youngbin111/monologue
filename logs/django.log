@@ -751,3 +751,716 @@ INFO 2026-02-26 18:02:18,339 log "GET /static/rest_framework/js/load-ajax-form.j
 INFO 2026-02-26 18:02:18,341 log "GET /static/rest_framework/js/prettify-min.js HTTP/1.1" 304 0
 INFO 2026-02-26 18:02:18,341 log "GET /static/rest_framework/js/default.js HTTP/1.1" 304 0
 INFO 2026-02-26 18:02:18,352 log "GET /static/rest_framework/img/grid.png HTTP/1.1" 304 0
+INFO 2026-02-26 20:07:27,095 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 20:10:50,722 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-26 20:10:54,348 log Not Found: /
+WARNING 2026-02-26 20:10:54,350 log "GET / HTTP/1.1" 404 3129
+WARNING 2026-02-26 20:10:54,598 log Not Found: /favicon.ico
+WARNING 2026-02-26 20:10:54,600 log "GET /favicon.ico HTTP/1.1" 404 3180
+INFO 2026-02-26 20:11:02,459 log "GET /api/posts/ HTTP/1.1" 200 5198
+INFO 2026-02-26 20:11:09,227 log "GET /swagger/ HTTP/1.1" 200 2162
+INFO 2026-02-26 20:11:09,760 log "GET /static/drf-yasg/style.css HTTP/1.1" 200 1187
+INFO 2026-02-26 20:11:09,771 log "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 200 177183
+INFO 2026-02-26 20:11:09,830 log "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 200 15480
+INFO 2026-02-26 20:11:09,847 log "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 200 2093
+INFO 2026-02-26 20:11:09,915 log "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 200 56904
+INFO 2026-02-26 20:11:09,991 log "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 200 252451
+INFO 2026-02-26 20:11:10,017 log "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 200 1510271
+INFO 2026-02-26 20:11:10,358 log "GET /swagger/?format=openapi HTTP/1.1" 200 9335
+INFO 2026-02-26 20:11:10,378 log "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 200 628
+INFO 2026-02-26 20:18:13,536 autoreload Watching for file changes with StatReloader
+ERROR 2026-02-26 20:22:24,989 log Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\utils\deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\http\request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+WARNING 2026-02-26 20:22:24,997 log "GET / HTTP/1.1" 400 78134
+ERROR 2026-02-26 20:22:25,328 log Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\utils\deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\http\request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+WARNING 2026-02-26 20:22:25,335 log "GET / HTTP/1.1" 400 78134
+ERROR 2026-02-26 20:22:28,816 log Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\utils\deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\http\request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+WARNING 2026-02-26 20:22:28,822 log "GET / HTTP/1.1" 400 78132
+ERROR 2026-02-26 20:22:28,838 log Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\utils\deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\http\request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+WARNING 2026-02-26 20:22:28,848 log "GET / HTTP/1.1" 400 78132
+INFO 2026-02-26 20:24:31,759 autoreload D:\Workspace\monologue\config\settings.py changed, reloading.
+INFO 2026-02-26 20:24:32,832 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 20:26:11,984 log "GET /swagger/ HTTP/1.1" 200 2162
+INFO 2026-02-26 20:26:12,025 log "GET /static/drf-yasg/style.css HTTP/1.1" 304 0
+INFO 2026-02-26 20:26:12,028 log "GET /static/drf-yasg/swagger-ui-dist/swagger-ui.css HTTP/1.1" 304 0
+INFO 2026-02-26 20:26:12,035 log "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-bundle.js HTTP/1.1" 304 0
+INFO 2026-02-26 20:26:12,035 log "GET /static/drf-yasg/swagger-ui-dist/swagger-ui-standalone-preset.js HTTP/1.1" 304 0
+INFO 2026-02-26 20:26:12,041 log "GET /static/drf-yasg/insQ.min.js HTTP/1.1" 304 0
+INFO 2026-02-26 20:26:12,041 log "GET /static/drf-yasg/immutable.min.js HTTP/1.1" 304 0
+INFO 2026-02-26 20:26:12,046 log "GET /static/drf-yasg/swagger-ui-init.js HTTP/1.1" 304 0
+INFO 2026-02-26 20:26:12,304 log "GET /swagger/?format=openapi HTTP/1.1" 200 9335
+INFO 2026-02-26 20:26:12,305 log "GET /static/drf-yasg/swagger-ui-dist/favicon-32x32.png HTTP/1.1" 304 0
+ERROR 2026-02-26 20:30:30,233 log Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\utils\deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\http\request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+WARNING 2026-02-26 20:30:30,240 log "GET / HTTP/1.1" 400 78338
+ERROR 2026-02-26 20:33:50,578 log Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\utils\deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\http\request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+WARNING 2026-02-26 20:33:50,581 log "GET / HTTP/1.1" 400 78168
+ERROR 2026-02-26 20:36:10,023 log Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\utils\deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\http\request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+WARNING 2026-02-26 20:36:10,025 log "GET / HTTP/1.1" 400 78338
+ERROR 2026-02-26 20:42:46,333 log Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\utils\deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\http\request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+WARNING 2026-02-26 20:42:46,333 log "GET / HTTP/1.1" 400 79049
+ERROR 2026-02-26 20:45:52,779 log Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+               ^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\utils\deprecation.py", line 308, in __call__
+    response = self.process_request(request)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+           ^^^^^^^^^^^^^^^^^^
+  File "D:\Workspace\monologue\venv\Lib\site-packages\django\http\request.py", line 205, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'neal-preevident-ainsley.ngrok-free.dev'. You may need to add 'neal-preevident-ainsley.ngrok-free.dev' to ALLOWED_HOSTS.
+WARNING 2026-02-26 20:45:52,782 log "GET / HTTP/1.1" 400 78168
+INFO 2026-02-26 20:45:58,510 autoreload D:\Workspace\monologue\config\settings.py changed, reloading.
+INFO 2026-02-26 20:45:59,864 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-26 20:46:04,761 log Not Found: /
+WARNING 2026-02-26 20:46:04,764 log "GET / HTTP/1.1" 404 3153
+INFO 2026-02-26 20:47:11,616 log "GET /api/accounts/check-username/?username=test123 HTTP/1.1" 200 5565
+INFO 2026-02-26 20:57:56,543 autoreload D:\Workspace\monologue\accounts\views.py changed, reloading.
+INFO 2026-02-26 20:57:57,812 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 20:59:37,553 autoreload D:\Workspace\monologue\accounts\views.py changed, reloading.
+INFO 2026-02-26 20:59:38,980 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 21:03:20,948 log "GET /api/accounts/check-username/?username=daskhfkjdf HTTP/1.1" 200 96
+INFO 2026-02-26 21:03:21,482 log "GET /api/accounts/check-username/?username=daskhfkjdf HTTP/1.1" 200 96
+INFO 2026-02-26 21:07:05,061 log "GET /api/accounts/check-username/?username=daskhfkjdf HTTP/1.1" 200 96
+INFO 2026-02-26 21:09:17,727 log "OPTIONS /api/accounts/check-username/?username=%E3%84%B9%E3%84%B4%E3%85%81%E3%85%8E HTTP/1.1" 200 0
+INFO 2026-02-26 21:09:23,037 log "OPTIONS /api/accounts/check-username/?username=dgdsdg HTTP/1.1" 200 0
+INFO 2026-02-26 21:09:45,684 log "OPTIONS /api/accounts/check-username/?username=dgsfhgfddf HTTP/1.1" 200 0
+INFO 2026-02-26 21:13:03,458 autoreload D:\Workspace\monologue\config\settings.py changed, reloading.
+INFO 2026-02-26 21:13:04,937 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 21:13:44,763 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 21:14:10,039 log "OPTIONS /api/accounts/check-username/?username=sfgdhjhgkhl HTTP/1.1" 200 0
+INFO 2026-02-26 21:14:10,139 log "GET /api/accounts/check-username/?username=sfgdhjhgkhl HTTP/1.1" 200 96
+INFO 2026-02-26 21:14:33,557 log "OPTIONS /api/accounts/check-username/?username=yeseul7 HTTP/1.1" 200 0
+INFO 2026-02-26 21:14:33,674 log "GET /api/accounts/check-username/?username=yeseul7 HTTP/1.1" 200 96
+INFO 2026-02-26 21:14:51,181 log "POST /api/accounts/signup/ HTTP/1.1" 201 667
+INFO 2026-02-26 21:15:18,651 log "POST /api/accounts/logout/ HTTP/1.1" 200 56
+WARNING 2026-02-26 21:15:25,953 log Not Found: /api/accounts/find-id/
+WARNING 2026-02-26 21:15:25,958 log "POST /api/accounts/find-id/ HTTP/1.1" 404 79
+WARNING 2026-02-26 21:16:01,541 log Not Found: /api/accounts/find-id/
+WARNING 2026-02-26 21:16:01,542 log "POST /api/accounts/find-id/ HTTP/1.1" 404 79
+INFO 2026-02-26 21:17:54,226 autoreload D:\Workspace\monologue\config\settings.py changed, reloading.
+INFO 2026-02-26 21:17:55,627 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 21:19:59,968 log "OPTIONS /api/accounts/find-id/ HTTP/1.1" 200 0
+WARNING 2026-02-26 21:20:00,055 log Not Found: /api/accounts/find-id/
+WARNING 2026-02-26 21:20:00,059 log "POST /api/accounts/find-id/ HTTP/1.1" 404 79
+INFO 2026-02-26 21:24:42,554 log "GET /api/accounts/check-username/?username=daskhfkjdf HTTP/1.1" 200 96
+INFO 2026-02-26 21:24:42,556 autoreload D:\Workspace\monologue\accounts\views.py changed, reloading.
+INFO 2026-02-26 21:24:43,931 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 21:25:03,885 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 21:25:24,174 log "POST /api/accounts/find-id/ HTTP/1.1" 200 78
+INFO 2026-02-26 21:29:17,116 autoreload D:\Workspace\monologue\config\settings.py changed, reloading.
+INFO 2026-02-26 21:29:18,474 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 21:29:25,997 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 21:37:46,232 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 21:44:40,688 log "OPTIONS /api/accounts/password-reset/ HTTP/1.1" 200 0
+INFO 2026-02-26 21:44:40,848 log "POST /api/accounts/password-reset/ HTTP/1.1" 200 120
+INFO 2026-02-26 21:45:05,912 log "POST /api/accounts/password-reset/ HTTP/1.1" 200 120
+INFO 2026-02-26 21:49:56,229 log "POST /api/accounts/password-reset/ HTTP/1.1" 200 120
+INFO 2026-02-26 21:50:26,540 log "OPTIONS /api/accounts/password-reset-confirm/Mg/d4mnb5-d749897eaf04d5d694b88789b22f86d0/ HTTP/1.1" 200 0
+WARNING 2026-02-26 21:50:26,628 log Bad Request: /api/accounts/password-reset-confirm/Mg/d4mnb5-d749897eaf04d5d694b88789b22f86d0/
+WARNING 2026-02-26 21:50:26,628 log "POST /api/accounts/password-reset-confirm/Mg/d4mnb5-d749897eaf04d5d694b88789b22f86d0/ HTTP/1.1" 400 127
+INFO 2026-02-26 21:50:40,724 log "POST /api/accounts/password-reset-confirm/Mg/d4mnb5-d749897eaf04d5d694b88789b22f86d0/ HTTP/1.1" 200 129
+WARNING 2026-02-26 21:50:56,912 log Too Many Requests: /api/accounts/login/
+WARNING 2026-02-26 21:50:56,914 log "POST /api/accounts/login/ HTTP/1.1" 429 85
+WARNING 2026-02-26 21:51:01,228 log Too Many Requests: /api/accounts/login/
+WARNING 2026-02-26 21:51:01,229 log "POST /api/accounts/login/ HTTP/1.1" 429 85
+INFO 2026-02-26 21:51:59,685 log "POST /api/accounts/find-id/ HTTP/1.1" 200 78
+INFO 2026-02-26 21:52:07,081 autoreload D:\Workspace\monologue\accounts\views.py changed, reloading.
+INFO 2026-02-26 21:52:07,784 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 21:52:18,508 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 21:52:39,053 log "POST /api/accounts/login/ HTTP/1.1" 200 646
+INFO 2026-02-26 21:53:03,397 log "POST /api/posts/ HTTP/1.1" 201 142
+INFO 2026-02-26 21:53:13,210 log "OPTIONS /api/my-posts/1/ HTTP/1.1" 200 0
+INFO 2026-02-26 21:53:13,241 log "OPTIONS /api/my-posts/1/ HTTP/1.1" 200 0
+INFO 2026-02-26 21:53:48,090 log "OPTIONS /api/accounts/verify-token/ HTTP/1.1" 200 0
+INFO 2026-02-26 21:53:48,095 log "OPTIONS /api/accounts/verify-token/ HTTP/1.1" 200 0
+INFO 2026-02-26 21:54:01,539 log "POST /api/posts/ HTTP/1.1" 201 139
+INFO 2026-02-26 21:54:09,066 log "OPTIONS /api/my-posts/2/ HTTP/1.1" 200 0
+INFO 2026-02-26 21:54:09,070 log "OPTIONS /api/my-posts/2/ HTTP/1.1" 200 0
+INFO 2026-02-26 21:55:32,156 autoreload D:\Workspace\monologue\posts\views.py changed, reloading.
+INFO 2026-02-26 21:55:32,887 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 21:57:10,113 log "POST /api/posts/ HTTP/1.1" 201 154
+INFO 2026-02-26 21:57:12,423 log "OPTIONS /api/my-posts/3/ HTTP/1.1" 200 0
+INFO 2026-02-26 21:57:12,427 log "OPTIONS /api/my-posts/3/ HTTP/1.1" 200 0
+INFO 2026-02-26 22:11:26,974 log "OPTIONS /api/accounts/login/ HTTP/1.1" 200 0
+INFO 2026-02-26 22:11:28,029 log "POST /api/accounts/login/ HTTP/1.1" 200 646
+INFO 2026-02-26 22:11:40,162 log "POST /api/posts/ HTTP/1.1" 201 147
+INFO 2026-02-26 22:11:43,154 log "OPTIONS /api/my-posts/4/ HTTP/1.1" 200 0
+INFO 2026-02-26 22:11:43,158 log "OPTIONS /api/my-posts/4/ HTTP/1.1" 200 0
+WARNING 2026-02-26 22:14:04,037 log Not Found: /
+WARNING 2026-02-26 22:14:04,038 log "GET / HTTP/1.1" 404 3153
+WARNING 2026-02-26 22:14:04,722 log Not Found: /
+WARNING 2026-02-26 22:14:04,724 log "GET / HTTP/1.1" 404 3153
+WARNING 2026-02-26 22:14:29,649 log Not Found: /
+WARNING 2026-02-26 22:14:29,651 log "GET / HTTP/1.1" 404 3153
+WARNING 2026-02-26 22:14:29,832 log Not Found: /favicon.ico
+WARNING 2026-02-26 22:14:29,834 log "GET /favicon.ico HTTP/1.1" 404 3204
+INFO 2026-02-26 22:14:47,736 log "OPTIONS /api/my-posts/ HTTP/1.1" 200 0
+INFO 2026-02-26 22:14:47,737 log "OPTIONS /api/my-posts/ HTTP/1.1" 200 0
+INFO 2026-02-26 22:14:58,775 log "OPTIONS /api/posts/ HTTP/1.1" 200 0
+INFO 2026-02-26 22:14:58,881 log "POST /api/posts/ HTTP/1.1" 201 157
+WARNING 2026-02-26 22:15:00,281 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:15:00,282 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:15:00,376 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:15:00,377 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+INFO 2026-02-26 22:15:01,253 log "OPTIONS /api/my-posts/5/ HTTP/1.1" 200 0
+INFO 2026-02-26 22:15:01,256 log "OPTIONS /api/my-posts/5/ HTTP/1.1" 200 0
+WARNING 2026-02-26 22:15:01,352 log Not Found: /api/my-posts/5/
+WARNING 2026-02-26 22:15:01,354 log "GET /api/my-posts/5/ HTTP/1.1" 404 3607
+WARNING 2026-02-26 22:15:01,448 log Not Found: /api/my-posts/5/
+WARNING 2026-02-26 22:15:01,450 log "GET /api/my-posts/5/ HTTP/1.1" 404 3607
+WARNING 2026-02-26 22:15:32,260 log Not Found: /api/my-posts/5/
+WARNING 2026-02-26 22:15:32,262 log "GET /api/my-posts/5/ HTTP/1.1" 404 3607
+WARNING 2026-02-26 22:16:58,183 log Not Found: /
+WARNING 2026-02-26 22:16:58,184 log "GET / HTTP/1.1" 404 3129
+INFO 2026-02-26 22:17:02,137 log "GET /api/posts/ HTTP/1.1" 200 5821
+INFO 2026-02-26 22:17:04,812 log "GET /admin HTTP/1.1" 301 0
+INFO 2026-02-26 22:17:04,844 log "GET /admin/ HTTP/1.1" 302 0
+INFO 2026-02-26 22:17:04,898 log "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4125
+INFO 2026-02-26 22:17:05,108 log "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 3538
+INFO 2026-02-26 22:17:05,115 log "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2026-02-26 22:17:05,119 log "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2026-02-26 22:17:05,120 log "GET /static/admin/css/base.css HTTP/1.1" 200 23100
+INFO 2026-02-26 22:17:05,129 log "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2026-02-26 22:17:05,137 log "GET /static/admin/css/responsive.css HTTP/1.1" 200 16273
+INFO 2026-02-26 22:17:05,140 log "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2026-02-26 22:17:08,426 log "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2026-02-26 22:17:08,466 log "GET /admin/ HTTP/1.1" 200 10056
+INFO 2026-02-26 22:17:08,511 log "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2026-02-26 22:17:08,514 log "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 978
+INFO 2026-02-26 22:17:08,515 log "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 593
+INFO 2026-02-26 22:17:18,095 log "GET /admin/posts/post/ HTTP/1.1" 200 13336
+INFO 2026-02-26 22:17:18,129 log "GET /static/admin/css/changelists.css HTTP/1.1" 200 7498
+INFO 2026-02-26 22:17:18,138 log "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2026-02-26 22:17:18,142 log "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2026-02-26 22:17:18,148 log "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2026-02-26 22:17:18,149 log "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2026-02-26 22:17:18,156 log "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2026-02-26 22:17:18,159 log "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2026-02-26 22:17:18,159 log "GET /admin/jsi18n/ HTTP/1.1" 200 9048
+INFO 2026-02-26 22:17:18,172 log "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2026-02-26 22:17:18,177 log "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2026-02-26 22:17:18,180 log "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2026-02-26 22:17:18,197 log "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 593
+INFO 2026-02-26 22:17:20,538 log "GET /admin/posts/post/5/change/ HTTP/1.1" 200 14703
+INFO 2026-02-26 22:17:20,568 log "GET /static/admin/css/forms.css HTTP/1.1" 200 8817
+INFO 2026-02-26 22:17:20,574 log "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2026-02-26 22:17:20,582 log "GET /static/admin/css/widgets.css HTTP/1.1" 200 11811
+INFO 2026-02-26 22:17:20,588 log "GET /admin/jsi18n/ HTTP/1.1" 200 9048
+INFO 2026-02-26 22:17:20,592 log "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 928
+INFO 2026-02-26 22:17:20,600 log "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2026-02-26 22:17:44,557 log "GET /admin/posts/post/ HTTP/1.1" 200 13336
+INFO 2026-02-26 22:17:48,520 log "GET /admin/posts/post/5/change/ HTTP/1.1" 200 14703
+INFO 2026-02-26 22:17:48,541 log "GET /admin/jsi18n/ HTTP/1.1" 200 9048
+WARNING 2026-02-26 22:19:50,394 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:19:50,396 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:19:50,496 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:19:50,498 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:20:05,556 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:20:05,558 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:20:05,650 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:20:05,652 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:20:14,530 log Not Found: /api/my-posts/5/
+WARNING 2026-02-26 22:20:14,531 log "GET /api/my-posts/5/ HTTP/1.1" 404 3607
+WARNING 2026-02-26 22:20:14,625 log Not Found: /api/my-posts/5/
+WARNING 2026-02-26 22:20:14,626 log "GET /api/my-posts/5/ HTTP/1.1" 404 3607
+WARNING 2026-02-26 22:22:41,601 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:22:41,602 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:22:41,699 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:22:41,701 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:22:43,116 log Not Found: /api/my-posts/5/
+WARNING 2026-02-26 22:22:43,118 log "GET /api/my-posts/5/ HTTP/1.1" 404 3607
+WARNING 2026-02-26 22:22:43,216 log Not Found: /api/my-posts/5/
+WARNING 2026-02-26 22:22:43,218 log "GET /api/my-posts/5/ HTTP/1.1" 404 3607
+INFO 2026-02-26 22:22:45,479 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 110
+INFO 2026-02-26 22:22:45,571 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 110
+WARNING 2026-02-26 22:22:59,338 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:22:59,339 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:22:59,450 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:22:59,451 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+INFO 2026-02-26 22:23:10,063 log "POST /api/posts/ HTTP/1.1" 201 157
+WARNING 2026-02-26 22:23:11,650 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:23:11,652 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:23:11,739 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:23:11,740 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+INFO 2026-02-26 22:23:13,123 log "OPTIONS /api/my-posts/6/ HTTP/1.1" 200 0
+INFO 2026-02-26 22:23:13,129 log "OPTIONS /api/my-posts/6/ HTTP/1.1" 200 0
+WARNING 2026-02-26 22:23:13,224 log Not Found: /api/my-posts/6/
+WARNING 2026-02-26 22:23:13,226 log "GET /api/my-posts/6/ HTTP/1.1" 404 3607
+WARNING 2026-02-26 22:23:13,322 log Not Found: /api/my-posts/6/
+WARNING 2026-02-26 22:23:13,324 log "GET /api/my-posts/6/ HTTP/1.1" 404 3607
+WARNING 2026-02-26 22:23:14,805 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:23:14,807 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:23:14,898 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:23:14,899 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:23:16,137 log Not Found: /api/my-posts/6/
+WARNING 2026-02-26 22:23:16,139 log "GET /api/my-posts/6/ HTTP/1.1" 404 3607
+WARNING 2026-02-26 22:23:16,237 log Not Found: /api/my-posts/6/
+WARNING 2026-02-26 22:23:16,238 log "GET /api/my-posts/6/ HTTP/1.1" 404 3607
+INFO 2026-02-26 22:25:37,326 autoreload D:\Workspace\monologue\posts\urls.py changed, reloading.
+INFO 2026-02-26 22:25:38,050 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-26 22:26:27,150 log Not Found: /
+WARNING 2026-02-26 22:26:27,152 log "GET / HTTP/1.1" 404 3153
+INFO 2026-02-26 22:26:27,877 log "GET /api/accounts/check-username/?username=daskhfkjdf HTTP/1.1" 200 96
+WARNING 2026-02-26 22:26:28,494 log Not Found: /api/my-posts/5/
+WARNING 2026-02-26 22:26:28,494 log "GET /api/my-posts/5/ HTTP/1.1" 404 3607
+WARNING 2026-02-26 22:26:28,975 log Not Found: /api/my-posts/6/</td>
+WARNING 2026-02-26 22:26:28,978 log "GET /api/my-posts/6/%3C/td%3E HTTP/1.1" 404 3638
+INFO 2026-02-26 22:26:55,521 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 110
+INFO 2026-02-26 22:26:55,615 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 110
+WARNING 2026-02-26 22:26:57,021 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:26:57,022 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:26:57,133 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:26:57,135 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+INFO 2026-02-26 22:27:07,787 autoreload D:\Workspace\monologue\posts\urls.py changed, reloading.
+INFO 2026-02-26 22:27:08,657 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 22:27:11,622 log "POST /api/posts/ HTTP/1.1" 201 159
+WARNING 2026-02-26 22:27:13,200 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:27:13,202 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:27:13,293 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:27:13,294 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+INFO 2026-02-26 22:27:14,074 log "OPTIONS /api/my-posts/7/ HTTP/1.1" 200 0
+INFO 2026-02-26 22:27:14,096 log "OPTIONS /api/my-posts/7/ HTTP/1.1" 200 0
+WARNING 2026-02-26 22:27:14,165 log Not Found: /api/my-posts/7/
+WARNING 2026-02-26 22:27:14,166 log "GET /api/my-posts/7/ HTTP/1.1" 404 3607
+WARNING 2026-02-26 22:27:14,261 log Not Found: /api/my-posts/7/
+WARNING 2026-02-26 22:27:14,262 log "GET /api/my-posts/7/ HTTP/1.1" 404 3607
+INFO 2026-02-26 22:29:26,565 autoreload D:\Workspace\monologue\posts\urls.py changed, reloading.
+INFO 2026-02-26 22:29:27,261 autoreload Watching for file changes with StatReloader
+WARNING 2026-02-26 22:29:38,056 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:29:38,057 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:29:38,147 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:29:38,149 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+INFO 2026-02-26 22:30:08,889 autoreload Watching for file changes with StatReloader
+INFO 2026-02-26 22:30:17,803 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 110
+INFO 2026-02-26 22:30:17,903 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 110
+WARNING 2026-02-26 22:30:19,091 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:30:19,092 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:30:19,175 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:30:19,176 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+INFO 2026-02-26 22:30:31,377 log "POST /api/posts/ HTTP/1.1" 201 146
+WARNING 2026-02-26 22:30:32,600 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:30:32,601 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-02-26 22:30:32,691 log Not Found: /api/my-posts/
+WARNING 2026-02-26 22:30:32,693 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+INFO 2026-02-26 22:30:33,436 log "OPTIONS /api/my-posts/8/ HTTP/1.1" 200 0
+INFO 2026-02-26 22:30:33,439 log "OPTIONS /api/my-posts/8/ HTTP/1.1" 200 0
+WARNING 2026-02-26 22:30:33,531 log Not Found: /api/my-posts/8/
+WARNING 2026-02-26 22:30:33,532 log "GET /api/my-posts/8/ HTTP/1.1" 404 3607
+WARNING 2026-02-26 22:30:33,628 log Not Found: /api/my-posts/8/
+WARNING 2026-02-26 22:30:33,629 log "GET /api/my-posts/8/ HTTP/1.1" 404 3607
+INFO 2026-02-26 22:31:04,353 autoreload D:\Workspace\monologue\posts\urls.py changed, reloading.
+INFO 2026-02-26 22:31:05,203 autoreload Watching for file changes with StatReloader
+INFO 2026-03-05 14:46:32,947 autoreload Watching for file changes with StatReloader
+WARNING 2026-03-05 14:47:18,224 log Bad Request: /api/accounts/check-username/
+WARNING 2026-03-05 14:47:18,224 log "GET /api/accounts/check-username/?username=dw HTTP/1.1" 400 122
+INFO 2026-03-05 14:47:24,830 log "GET /api/accounts/check-username/?username=dwbh HTTP/1.1" 200 96
+INFO 2026-03-05 14:47:50,248 log "OPTIONS /api/accounts/signup/ HTTP/1.1" 200 0
+WARNING 2026-03-05 14:47:50,347 log Bad Request: /api/accounts/signup/
+WARNING 2026-03-05 14:47:50,349 log "POST /api/accounts/signup/ HTTP/1.1" 400 123
+INFO 2026-03-05 14:47:59,094 log "POST /api/accounts/signup/ HTTP/1.1" 201 666
+INFO 2026-03-05 14:48:17,384 log "OPTIONS /api/my-posts/ HTTP/1.1" 200 0
+INFO 2026-03-05 14:48:17,386 log "OPTIONS /api/my-posts/ HTTP/1.1" 200 0
+WARNING 2026-03-05 14:48:17,440 log Not Found: /api/my-posts/
+WARNING 2026-03-05 14:48:17,440 log "GET /api/my-posts/ HTTP/1.1" 404 3577
+WARNING 2026-03-05 14:48:17,449 log Not Found: /api/my-posts/
+WARNING 2026-03-05 14:48:17,449 log "GET /api/my-posts/ HTTP/1.1" 404 3577
+INFO 2026-03-05 14:51:33,274 log "OPTIONS /api/posts/ HTTP/1.1" 200 0
+INFO 2026-03-05 14:51:33,347 log "POST /api/posts/ HTTP/1.1" 201 138
+INFO 2026-03-05 14:51:34,458 log "OPTIONS /api/posts/my-posts/ HTTP/1.1" 200 0
+INFO 2026-03-05 14:51:34,458 log "OPTIONS /api/posts/my-posts/ HTTP/1.1" 200 0
+INFO 2026-03-05 14:51:34,475 log "GET /api/posts/my-posts/ HTTP/1.1" 200 140
+INFO 2026-03-05 14:51:34,485 log "GET /api/posts/my-posts/ HTTP/1.1" 200 140
+INFO 2026-03-05 14:51:43,065 log "GET /api/posts/ HTTP/1.1" 200 444
+INFO 2026-03-05 14:51:43,076 log "GET /api/posts/ HTTP/1.1" 200 444
+WARNING 2026-03-05 14:51:49,316 log Not Found: /api/books/category
+WARNING 2026-03-05 14:51:49,332 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+WARNING 2026-03-05 14:51:49,341 log Not Found: /api/books/category
+WARNING 2026-03-05 14:51:49,345 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+INFO 2026-03-05 14:51:56,355 log "GET /api/posts/ HTTP/1.1" 200 444
+INFO 2026-03-05 14:51:56,361 log "GET /api/posts/ HTTP/1.1" 200 444
+INFO 2026-03-05 14:51:57,237 log "GET /api/posts/my-posts/ HTTP/1.1" 200 140
+INFO 2026-03-05 14:51:57,256 log "GET /api/posts/my-posts/ HTTP/1.1" 200 140
+INFO 2026-03-05 14:52:01,321 log "OPTIONS /api/posts/my-posts/9/ HTTP/1.1" 200 0
+INFO 2026-03-05 14:52:01,321 log "OPTIONS /api/posts/my-posts/9/ HTTP/1.1" 200 0
+INFO 2026-03-05 14:52:01,325 log "GET /api/posts/my-posts/9/ HTTP/1.1" 200 138
+INFO 2026-03-05 14:52:01,341 log "GET /api/posts/my-posts/9/ HTTP/1.1" 200 138
+INFO 2026-03-05 14:52:06,108 log "GET /api/posts/my-posts/ HTTP/1.1" 200 140
+INFO 2026-03-05 14:52:06,124 log "GET /api/posts/my-posts/ HTTP/1.1" 200 140
+INFO 2026-03-05 16:07:25,586 log "GET /api/posts/ HTTP/1.1" 200 444
+INFO 2026-03-05 16:07:25,603 log "GET /api/posts/ HTTP/1.1" 200 444
+WARNING 2026-03-05 16:07:27,342 log Not Found: /api/books/category
+WARNING 2026-03-05 16:07:27,343 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+WARNING 2026-03-05 16:07:27,356 log Not Found: /api/books/category
+WARNING 2026-03-05 16:07:27,357 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+WARNING 2026-03-05 16:07:32,248 log Unauthorized: /api/posts/my-posts/
+WARNING 2026-03-05 16:07:32,249 log "GET /api/posts/my-posts/ HTTP/1.1" 401 205
+WARNING 2026-03-05 16:07:32,253 log Unauthorized: /api/posts/my-posts/
+WARNING 2026-03-05 16:07:32,254 log "GET /api/posts/my-posts/ HTTP/1.1" 401 205
+INFO 2026-03-05 16:07:32,255 log "OPTIONS /api/accounts/token/refresh/ HTTP/1.1" 200 0
+INFO 2026-03-05 16:07:32,297 log "POST /api/accounts/token/refresh/ HTTP/1.1" 200 489
+INFO 2026-03-05 16:07:32,308 log "POST /api/accounts/token/refresh/ HTTP/1.1" 200 489
+INFO 2026-03-05 16:07:32,320 log "GET /api/posts/my-posts/ HTTP/1.1" 200 140
+INFO 2026-03-05 16:07:32,334 log "GET /api/posts/my-posts/ HTTP/1.1" 200 140
+INFO 2026-03-05 16:08:49,083 log "GET /api/posts/my-posts/9/ HTTP/1.1" 200 138
+INFO 2026-03-05 16:08:49,093 log "GET /api/posts/my-posts/9/ HTTP/1.1" 200 138
+INFO 2026-03-05 16:08:51,485 log "GET /api/posts/my-posts/ HTTP/1.1" 200 140
+INFO 2026-03-05 16:08:51,494 log "GET /api/posts/my-posts/ HTTP/1.1" 200 140
+INFO 2026-03-05 16:09:00,727 log "POST /api/posts/ HTTP/1.1" 201 145
+INFO 2026-03-05 16:09:02,415 log "GET /api/posts/my-posts/ HTTP/1.1" 200 286
+INFO 2026-03-05 16:09:02,425 log "GET /api/posts/my-posts/ HTTP/1.1" 200 286
+INFO 2026-03-05 16:09:10,527 log "GET /api/posts/ HTTP/1.1" 200 590
+INFO 2026-03-05 16:09:10,543 log "GET /api/posts/ HTTP/1.1" 200 590
+WARNING 2026-03-05 16:09:28,703 log Not Found: /api/books/category
+WARNING 2026-03-05 16:09:28,704 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+WARNING 2026-03-05 16:09:28,713 log Not Found: /api/books/category
+WARNING 2026-03-05 16:09:28,716 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+WARNING 2026-03-05 16:09:31,303 log Unauthorized: /api/books/detail
+WARNING 2026-03-05 16:09:31,304 log "GET /api/books/detail?id=b3 HTTP/1.1" 401 69
+WARNING 2026-03-05 16:09:31,307 log Unauthorized: /api/books/detail
+WARNING 2026-03-05 16:09:31,308 log "GET /api/books/detail?id=b3 HTTP/1.1" 401 69
+WARNING 2026-03-05 16:10:32,238 log Not Found: /api/books/category
+WARNING 2026-03-05 16:10:32,239 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+WARNING 2026-03-05 16:10:32,251 log Not Found: /api/books/category
+WARNING 2026-03-05 16:10:32,252 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+INFO 2026-03-05 16:20:31,296 log "GET /api/posts/my-posts/ HTTP/1.1" 200 286
+INFO 2026-03-05 16:20:31,312 log "GET /api/posts/my-posts/ HTTP/1.1" 200 286
+INFO 2026-03-05 16:20:35,560 log "OPTIONS /api/posts/my-posts/10/ HTTP/1.1" 200 0
+INFO 2026-03-05 16:20:35,567 log "OPTIONS /api/posts/my-posts/10/ HTTP/1.1" 200 0
+INFO 2026-03-05 16:20:35,575 log "GET /api/posts/my-posts/10/ HTTP/1.1" 200 145
+INFO 2026-03-05 16:20:35,597 log "GET /api/posts/my-posts/10/ HTTP/1.1" 200 145
+INFO 2026-03-05 16:21:21,211 log "GET /api/posts/my-posts/ HTTP/1.1" 200 286
+INFO 2026-03-05 16:21:21,229 log "GET /api/posts/my-posts/ HTTP/1.1" 200 286
+INFO 2026-03-05 16:21:22,520 log "GET /api/posts/my-posts/10/ HTTP/1.1" 200 145
+INFO 2026-03-05 16:21:22,531 log "GET /api/posts/my-posts/10/ HTTP/1.1" 200 145
+INFO 2026-03-05 16:21:28,243 log "GET /api/posts/my-posts/ HTTP/1.1" 200 286
+INFO 2026-03-05 16:21:28,256 log "GET /api/posts/my-posts/ HTTP/1.1" 200 286
+INFO 2026-03-05 16:36:56,114 log "GET /api/posts/my-posts/ HTTP/1.1" 200 286
+INFO 2026-03-05 16:36:56,126 log "GET /api/posts/my-posts/ HTTP/1.1" 200 286
+INFO 2026-03-05 16:37:07,801 log "GET /api/posts/my-posts/10/ HTTP/1.1" 200 145
+INFO 2026-03-05 16:37:07,812 log "GET /api/posts/my-posts/10/ HTTP/1.1" 200 145
+INFO 2026-03-05 16:37:30,622 log "GET /api/posts/my-posts/ HTTP/1.1" 200 286
+INFO 2026-03-05 16:37:30,632 log "GET /api/posts/my-posts/ HTTP/1.1" 200 286
+INFO 2026-03-05 16:37:48,574 log "POST /api/posts/ HTTP/1.1" 201 232
+INFO 2026-03-05 16:37:49,831 log "GET /api/posts/my-posts/ HTTP/1.1" 200 519
+INFO 2026-03-05 16:37:49,845 log "GET /api/posts/my-posts/ HTTP/1.1" 200 519
+INFO 2026-03-05 16:37:54,465 log "OPTIONS /api/posts/my-posts/11/ HTTP/1.1" 200 0
+INFO 2026-03-05 16:37:54,470 log "OPTIONS /api/posts/my-posts/11/ HTTP/1.1" 200 0
+INFO 2026-03-05 16:37:54,478 log "GET /api/posts/my-posts/11/ HTTP/1.1" 200 232
+INFO 2026-03-05 16:37:54,485 log "GET /api/posts/my-posts/11/ HTTP/1.1" 200 232
+INFO 2026-03-05 16:39:01,942 log "GET /api/posts/my-posts/ HTTP/1.1" 200 519
+INFO 2026-03-05 16:39:01,967 log "GET /api/posts/my-posts/ HTTP/1.1" 200 519
+INFO 2026-03-05 16:39:42,967 log "GET /api/posts/ HTTP/1.1" 200 823
+INFO 2026-03-05 16:39:42,985 log "GET /api/posts/ HTTP/1.1" 200 823
+INFO 2026-03-05 16:39:48,790 log "GET /api/posts/my-posts/ HTTP/1.1" 200 519
+INFO 2026-03-05 16:39:48,807 log "GET /api/posts/my-posts/ HTTP/1.1" 200 519
+INFO 2026-03-05 16:40:13,261 log "GET /api/posts/my-posts/ HTTP/1.1" 200 519
+INFO 2026-03-05 16:40:13,277 log "GET /api/posts/my-posts/ HTTP/1.1" 200 519
+INFO 2026-03-05 16:40:15,083 log "GET /api/posts/my-posts/11/ HTTP/1.1" 200 232
+INFO 2026-03-05 16:40:15,107 log "GET /api/posts/my-posts/11/ HTTP/1.1" 200 232
+INFO 2026-03-05 16:40:35,762 log "GET /api/posts/my-posts/ HTTP/1.1" 200 519
+INFO 2026-03-05 16:40:35,778 log "GET /api/posts/my-posts/ HTTP/1.1" 200 519
+INFO 2026-03-05 16:41:06,363 log "POST /api/posts/ HTTP/1.1" 201 168
+INFO 2026-03-05 16:41:07,832 log "GET /api/posts/my-posts/ HTTP/1.1" 200 688
+INFO 2026-03-05 16:41:07,854 log "GET /api/posts/my-posts/ HTTP/1.1" 200 688
+INFO 2026-03-05 16:45:11,487 log "OPTIONS /api/accounts/verify-token/ HTTP/1.1" 200 0
+INFO 2026-03-05 16:45:11,494 log "OPTIONS /api/accounts/verify-token/ HTTP/1.1" 200 0
+INFO 2026-03-05 16:45:11,498 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107
+INFO 2026-03-05 16:45:11,509 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107
+WARNING 2026-03-05 16:45:15,515 log Not Found: /api/books/category
+WARNING 2026-03-05 16:45:15,517 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+WARNING 2026-03-05 16:45:15,533 log Not Found: /api/books/category
+WARNING 2026-03-05 16:45:15,535 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+INFO 2026-03-05 16:46:07,799 autoreload Watching for file changes with StatReloader
+INFO 2026-03-05 16:46:22,130 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107
+INFO 2026-03-05 16:46:22,135 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107
+INFO 2026-03-05 16:47:04,111 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107
+INFO 2026-03-05 16:47:04,120 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107
+INFO 2026-03-05 16:49:26,618 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107
+INFO 2026-03-05 16:49:26,627 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107
+INFO 2026-03-05 16:51:19,691 log "GET /api/posts/my-posts/ HTTP/1.1" 200 688
+INFO 2026-03-05 16:51:19,705 log "GET /api/posts/my-posts/ HTTP/1.1" 200 688
+INFO 2026-03-05 16:51:22,712 log "OPTIONS /api/posts/my-posts/12/ HTTP/1.1" 200 0
+INFO 2026-03-05 16:51:22,717 log "OPTIONS /api/posts/my-posts/12/ HTTP/1.1" 200 0
+INFO 2026-03-05 16:51:22,724 log "GET /api/posts/my-posts/12/ HTTP/1.1" 200 168
+INFO 2026-03-05 16:51:22,736 log "GET /api/posts/my-posts/12/ HTTP/1.1" 200 168
+INFO 2026-03-05 17:04:37,497 log "OPTIONS /api/accounts/password-reset/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:04:41,097 log "POST /api/accounts/password-reset/ HTTP/1.1" 200 120
+INFO 2026-03-05 17:05:06,476 log "OPTIONS /api/accounts/password-reset-confirm/Mg/d4z8rp-846f240180b046816b0b1e40cb86e93e/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:05:07,375 log "POST /api/accounts/password-reset-confirm/Mg/d4z8rp-846f240180b046816b0b1e40cb86e93e/ HTTP/1.1" 200 129
+INFO 2026-03-05 17:05:16,304 log "OPTIONS /api/accounts/login/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:05:17,201 log "POST /api/accounts/login/ HTTP/1.1" 200 646
+INFO 2026-03-05 17:05:24,499 log "OPTIONS /api/my-posts/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:05:24,500 log "OPTIONS /api/my-posts/ HTTP/1.1" 200 0
+WARNING 2026-03-05 17:05:24,625 log Not Found: /api/my-posts/
+WARNING 2026-03-05 17:05:24,626 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-03-05 17:05:24,748 log Not Found: /api/my-posts/
+WARNING 2026-03-05 17:05:24,749 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+INFO 2026-03-05 17:05:35,965 log "OPTIONS /api/posts/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:05:36,105 log "POST /api/posts/ HTTP/1.1" 201 148
+WARNING 2026-03-05 17:05:37,293 log Not Found: /api/my-posts/
+WARNING 2026-03-05 17:05:37,295 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-03-05 17:05:37,408 log Not Found: /api/my-posts/
+WARNING 2026-03-05 17:05:37,410 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+INFO 2026-03-05 17:05:41,905 log "OPTIONS /api/my-posts/13/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:05:41,908 log "OPTIONS /api/my-posts/13/ HTTP/1.1" 200 0
+WARNING 2026-03-05 17:05:42,044 log Not Found: /api/my-posts/13/
+WARNING 2026-03-05 17:05:42,046 log "GET /api/my-posts/13/ HTTP/1.1" 404 3610
+INFO 2026-03-05 17:05:42,173 log "OPTIONS /api/posts/13/ HTTP/1.1" 200 0
+WARNING 2026-03-05 17:05:42,181 log Not Found: /api/my-posts/13/
+WARNING 2026-03-05 17:05:42,183 log "GET /api/my-posts/13/ HTTP/1.1" 404 3610
+INFO 2026-03-05 17:05:42,300 log "GET /api/posts/13/ HTTP/1.1" 200 148
+INFO 2026-03-05 17:05:42,431 log "GET /api/posts/13/ HTTP/1.1" 200 148
+WARNING 2026-03-05 17:05:49,283 log Not Found: /api/my-posts/13/
+WARNING 2026-03-05 17:05:49,285 log "GET /api/my-posts/13/ HTTP/1.1" 404 3610
+INFO 2026-03-05 17:05:49,436 log "GET /api/posts/13/ HTTP/1.1" 200 148
+WARNING 2026-03-05 17:05:49,444 log Not Found: /api/my-posts/13/
+WARNING 2026-03-05 17:05:49,446 log "GET /api/my-posts/13/ HTTP/1.1" 404 3610
+INFO 2026-03-05 17:05:49,567 log "GET /api/posts/13/ HTTP/1.1" 200 148
+WARNING 2026-03-05 17:07:11,610 log Not Found: /api/my-posts/
+WARNING 2026-03-05 17:07:11,612 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-03-05 17:07:11,737 log Not Found: /api/my-posts/
+WARNING 2026-03-05 17:07:11,739 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-03-05 17:07:13,840 log Not Found: /api/my-posts/13/
+WARNING 2026-03-05 17:07:13,842 log "GET /api/my-posts/13/ HTTP/1.1" 404 3610
+WARNING 2026-03-05 17:07:13,966 log Not Found: /api/my-posts/13/
+WARNING 2026-03-05 17:07:13,972 log "GET /api/my-posts/13/ HTTP/1.1" 404 3610
+INFO 2026-03-05 17:07:13,980 log "GET /api/posts/13/ HTTP/1.1" 200 148
+INFO 2026-03-05 17:07:14,112 log "GET /api/posts/13/ HTTP/1.1" 200 148
+WARNING 2026-03-05 17:07:19,191 log Not Found: /api/my-posts/
+WARNING 2026-03-05 17:07:19,192 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-03-05 17:07:19,318 log Not Found: /api/my-posts/
+WARNING 2026-03-05 17:07:19,320 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+INFO 2026-03-05 17:08:47,555 log "OPTIONS /api/accounts/verify-token/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:08:47,556 log "OPTIONS /api/accounts/verify-token/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:08:47,681 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 110
+INFO 2026-03-05 17:08:47,796 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 110
+INFO 2026-03-05 17:09:00,677 log "POST /api/accounts/login/ HTTP/1.1" 200 646
+WARNING 2026-03-05 17:10:14,706 log Not Found: /api/my-posts/
+WARNING 2026-03-05 17:10:14,709 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-03-05 17:10:14,848 log Not Found: /api/my-posts/
+WARNING 2026-03-05 17:10:14,850 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-03-05 17:10:23,712 log Not Found: /api/my-posts/
+WARNING 2026-03-05 17:10:23,713 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+WARNING 2026-03-05 17:10:23,841 log Not Found: /api/my-posts/
+WARNING 2026-03-05 17:10:23,843 log "GET /api/my-posts/ HTTP/1.1" 404 3601
+INFO 2026-03-05 17:11:19,215 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 110
+INFO 2026-03-05 17:11:19,339 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 110
+INFO 2026-03-05 17:11:44,003 log "OPTIONS /api/posts/my-posts/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:11:44,003 log "OPTIONS /api/posts/my-posts/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:11:44,135 log "GET /api/posts/my-posts/ HTTP/1.1" 200 1359
+INFO 2026-03-05 17:11:44,269 log "GET /api/posts/my-posts/ HTTP/1.1" 200 1359
+INFO 2026-03-05 17:11:50,657 log "GET /api/posts/my-posts/ HTTP/1.1" 200 1359
+INFO 2026-03-05 17:11:50,785 log "GET /api/posts/my-posts/ HTTP/1.1" 200 1359
+INFO 2026-03-05 17:12:06,822 log "GET /api/posts/ HTTP/1.1" 200 992
+INFO 2026-03-05 17:12:06,835 log "GET /api/posts/ HTTP/1.1" 200 992
+INFO 2026-03-05 17:20:05,645 log "OPTIONS /api/posts/my-posts/ HTTP/1.1" 200 0
+WARNING 2026-03-05 17:20:05,650 log Unauthorized: /api/posts/my-posts/
+INFO 2026-03-05 17:20:05,650 log "OPTIONS /api/posts/my-posts/ HTTP/1.1" 200 0
+WARNING 2026-03-05 17:20:05,652 log "GET /api/posts/my-posts/ HTTP/1.1" 401 205
+WARNING 2026-03-05 17:20:05,655 log Unauthorized: /api/posts/my-posts/
+WARNING 2026-03-05 17:20:05,660 log "GET /api/posts/my-posts/ HTTP/1.1" 401 205
+INFO 2026-03-05 17:20:05,722 log "POST /api/accounts/token/refresh/ HTTP/1.1" 200 489
+INFO 2026-03-05 17:20:05,743 log "GET /api/posts/my-posts/ HTTP/1.1" 200 688
+INFO 2026-03-05 17:20:05,750 log "POST /api/accounts/token/refresh/ HTTP/1.1" 200 489
+INFO 2026-03-05 17:20:05,769 log "GET /api/posts/my-posts/ HTTP/1.1" 200 688
+INFO 2026-03-05 17:21:28,969 log "GET /api/posts/my-posts/ HTTP/1.1" 200 688
+INFO 2026-03-05 17:21:28,983 log "GET /api/posts/my-posts/ HTTP/1.1" 200 688
+INFO 2026-03-05 17:21:44,383 log "OPTIONS /api/posts/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:21:44,411 log "POST /api/posts/ HTTP/1.1" 201 154
+INFO 2026-03-05 17:21:47,402 log "GET /api/posts/my-posts/ HTTP/1.1" 200 843
+INFO 2026-03-05 17:21:47,419 log "GET /api/posts/my-posts/ HTTP/1.1" 200 843
+INFO 2026-03-05 17:21:56,669 log "GET /api/posts/ HTTP/1.1" 200 1147
+INFO 2026-03-05 17:21:56,683 log "GET /api/posts/ HTTP/1.1" 200 1147
+WARNING 2026-03-05 17:22:08,551 log Not Found: /api/books/category
+WARNING 2026-03-05 17:22:08,553 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+WARNING 2026-03-05 17:22:08,560 log Not Found: /api/books/category
+WARNING 2026-03-05 17:22:08,560 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+WARNING 2026-03-05 17:22:15,641 log Unauthorized: /api/books/detail
+WARNING 2026-03-05 17:22:15,642 log "GET /api/books/detail?id=b2 HTTP/1.1" 401 69
+WARNING 2026-03-05 17:22:15,645 log Unauthorized: /api/books/detail
+WARNING 2026-03-05 17:22:15,646 log "GET /api/books/detail?id=b2 HTTP/1.1" 401 69
+INFO 2026-03-05 17:24:55,507 log "OPTIONS /api/posts/my-posts/13/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:24:55,507 log "OPTIONS /api/posts/my-posts/13/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:24:55,627 log "GET /api/posts/my-posts/13/ HTTP/1.1" 200 148
+INFO 2026-03-05 17:24:55,761 log "GET /api/posts/my-posts/13/ HTTP/1.1" 200 148
+INFO 2026-03-05 17:25:02,832 log "PATCH /api/posts/my-posts/13/ HTTP/1.1" 200 148
+INFO 2026-03-05 17:25:04,617 log "GET /api/posts/my-posts/13/ HTTP/1.1" 200 148
+INFO 2026-03-05 17:25:04,735 log "GET /api/posts/my-posts/13/ HTTP/1.1" 200 148
+INFO 2026-03-05 17:25:08,553 log "DELETE /api/posts/my-posts/13/ HTTP/1.1" 204 0
+INFO 2026-03-05 17:25:10,071 log "GET /api/posts/my-posts/ HTTP/1.1" 200 1210
+INFO 2026-03-05 17:25:10,385 log "GET /api/posts/my-posts/ HTTP/1.1" 200 1210
+INFO 2026-03-05 17:25:14,750 log "OPTIONS /api/posts/my-posts/1/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:25:14,751 log "OPTIONS /api/posts/my-posts/1/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:25:14,881 log "GET /api/posts/my-posts/1/ HTTP/1.1" 200 142
+INFO 2026-03-05 17:25:15,008 log "GET /api/posts/my-posts/1/ HTTP/1.1" 200 142
+INFO 2026-03-05 17:25:22,470 log "GET /api/posts/my-posts/ HTTP/1.1" 200 1210
+INFO 2026-03-05 17:25:22,608 log "GET /api/posts/my-posts/ HTTP/1.1" 200 1210
+INFO 2026-03-05 17:25:40,092 log "GET /api/posts/my-posts/ HTTP/1.1" 200 1210
+INFO 2026-03-05 17:25:40,216 log "GET /api/posts/my-posts/ HTTP/1.1" 200 1210
+INFO 2026-03-05 17:25:45,534 log "GET /api/posts/my-posts/1/ HTTP/1.1" 200 142
+INFO 2026-03-05 17:25:45,653 log "GET /api/posts/my-posts/1/ HTTP/1.1" 200 142
+INFO 2026-03-05 17:25:49,742 log "DELETE /api/posts/my-posts/1/ HTTP/1.1" 204 0
+INFO 2026-03-05 17:25:50,730 log "GET /api/posts/my-posts/ HTTP/1.1" 200 1067
+INFO 2026-03-05 17:25:50,852 log "GET /api/posts/my-posts/ HTTP/1.1" 200 1067
+INFO 2026-03-05 17:26:02,038 log "OPTIONS /api/posts/my-posts/2/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:26:02,041 log "OPTIONS /api/posts/my-posts/2/ HTTP/1.1" 200 0
+INFO 2026-03-05 17:26:02,158 log "GET /api/posts/my-posts/2/ HTTP/1.1" 200 139
+INFO 2026-03-05 17:26:02,278 log "GET /api/posts/my-posts/2/ HTTP/1.1" 200 139
+INFO 2026-03-05 17:26:06,569 log "DELETE /api/posts/my-posts/2/ HTTP/1.1" 204 0
+INFO 2026-03-05 17:26:07,623 log "GET /api/posts/my-posts/ HTTP/1.1" 200 927
+INFO 2026-03-05 17:26:07,758 log "GET /api/posts/my-posts/ HTTP/1.1" 200 927
+INFO 2026-03-05 17:27:04,728 log "GET /api/posts/my-posts/ HTTP/1.1" 200 927
+INFO 2026-03-05 17:27:04,906 log "GET /api/posts/my-posts/ HTTP/1.1" 200 927
+INFO 2026-03-05 17:27:08,246 log "GET /api/posts/my-posts/ HTTP/1.1" 200 927
+INFO 2026-03-05 17:27:08,389 log "GET /api/posts/my-posts/ HTTP/1.1" 200 927
+WARNING 2026-03-05 17:55:14,213 log Not Found: /
+WARNING 2026-03-05 17:55:14,214 log "GET / HTTP/1.1" 404 3153
+INFO 2026-03-05 18:18:14,629 autoreload Watching for file changes with StatReloader
+INFO 2026-03-05 18:18:32,268 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107
+INFO 2026-03-05 18:18:32,273 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107
+INFO 2026-03-05 18:18:36,897 log "OPTIONS /api/accounts/logout/ HTTP/1.1" 200 0
+INFO 2026-03-05 18:18:36,938 log "POST /api/accounts/logout/ HTTP/1.1" 200 56
+INFO 2026-03-05 18:18:57,506 log "OPTIONS /api/accounts/check-nickname/?nickname=%E3%85%87%E3%85%87%E3%85%87 HTTP/1.1" 200 0
+WARNING 2026-03-05 18:18:57,512 log Bad Request: /api/accounts/check-nickname/
+WARNING 2026-03-05 18:18:57,514 log "GET /api/accounts/check-nickname/?nickname=%E3%85%87%E3%85%87%E3%85%87 HTTP/1.1" 400 130
+INFO 2026-03-05 18:20:36,081 log "OPTIONS /api/accounts/check-nickname/?nickname=%EC%95%88%EB%85%95 HTTP/1.1" 200 0
+INFO 2026-03-05 18:20:36,088 log "GET /api/accounts/check-nickname/?nickname=%EC%95%88%EB%85%95 HTTP/1.1" 200 96
+INFO 2026-03-05 18:20:41,508 log "GET /api/accounts/check-username/?username=dwbh HTTP/1.1" 200 100
+INFO 2026-03-05 18:21:09,544 log "GET /api/accounts/check-username/?username=qlsl HTTP/1.1" 200 96
+INFO 2026-03-05 18:21:25,137 log "OPTIONS /api/accounts/signup/ HTTP/1.1" 200 0
+INFO 2026-03-05 18:21:25,792 log "POST /api/accounts/signup/ HTTP/1.1" 201 664
+INFO 2026-03-05 18:21:44,289 log "GET /api/accounts/check-nickname/?nickname=%EC%95%88%EB%85%95 HTTP/1.1" 200 100
+INFO 2026-03-05 18:23:20,932 log "OPTIONS /api/accounts/login/ HTTP/1.1" 200 0
+INFO 2026-03-05 18:23:21,947 log "POST /api/accounts/login/ HTTP/1.1" 200 645
+WARNING 2026-03-05 18:23:24,584 log Not Found: /api/books/category
+WARNING 2026-03-05 18:23:24,587 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+WARNING 2026-03-05 18:23:24,598 log Not Found: /api/books/category
+WARNING 2026-03-05 18:23:24,599 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+INFO 2026-03-05 18:24:54,094 log "GET /api/posts/ HTTP/1.1" 200 864
+INFO 2026-03-05 18:24:54,103 log "GET /api/posts/ HTTP/1.1" 200 864
+INFO 2026-03-05 18:24:56,266 log "GET /api/posts/my-posts/ HTTP/1.1" 200 843
+INFO 2026-03-05 18:24:56,289 log "GET /api/posts/my-posts/ HTTP/1.1" 200 843
+WARNING 2026-03-05 18:25:00,256 log Not Found: /api/books/category
+WARNING 2026-03-05 18:25:00,257 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+WARNING 2026-03-05 18:25:00,268 log Not Found: /api/books/category
+WARNING 2026-03-05 18:25:00,270 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+INFO 2026-03-05 18:25:06,775 log "GET /api/posts/my-posts/ HTTP/1.1" 200 843
+INFO 2026-03-05 18:25:06,787 log "GET /api/posts/my-posts/ HTTP/1.1" 200 843
+INFO 2026-03-05 18:41:58,779 autoreload Watching for file changes with StatReloader
+INFO 2026-03-05 18:42:38,567 log "OPTIONS /api/accounts/verify-token/ HTTP/1.1" 200 0
+INFO 2026-03-05 18:42:38,567 log "OPTIONS /api/accounts/verify-token/ HTTP/1.1" 200 0
+INFO 2026-03-05 18:42:38,616 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107
+INFO 2026-03-05 18:42:38,626 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107
+WARNING 2026-03-05 18:42:44,458 log Not Found: /api/books/category
+WARNING 2026-03-05 18:42:44,459 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+WARNING 2026-03-05 18:42:44,461 log Not Found: /api/books/category
+WARNING 2026-03-05 18:42:44,461 log "GET /api/books/category?category=01&limit=5 HTTP/1.1" 404 3616
+INFO 2026-03-05 19:05:22,717 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107
+INFO 2026-03-05 19:05:22,717 log "GET /api/accounts/verify-token/ HTTP/1.1" 200 107

@@ -7,7 +7,9 @@ Django 설정 파일
 from pathlib import Path
 from datetime import timedelta
 import os
+from dotenv import load_dotenv
 
+load_dotenv()
 # Build paths
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,7 +19,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-change-this-in-produc
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+ALLOWED_HOSTS = ["*"] # 모든 ngrok 주소 허용
 
 
 # Application definition
@@ -34,6 +36,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',  # 토큰 블랙리스트
     'corsheaders',  # CORS 처리
+    'drf_yasg',
     
     # Local apps
     'accounts',
@@ -209,6 +212,7 @@ SIMPLE_JWT = {
 # 개발 환경
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://localhost:3001",
     "http://localhost:5173",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5173",
@@ -361,3 +365,32 @@ import os
 log_dir = BASE_DIR / 'logs'
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
+    
+
+from corsheaders.defaults import default_headers
+
+# 프론트엔드에서 보내는 ngrok 특수 헤더를 장고가 허락하도록 설정합니다.
+CORS_ALLOW_HEADERS = list(default_headers) + [
+    "ngrok-skip-browser-warning",
+]
+
+# (확인용) 프론트엔드 접속 허용 설정이 잘 되어있는지 체크!
+# 개발 중이시니 일단 모든 접근을 허용해두는 것이 편합니다.
+CORS_ALLOW_ALL_ORIGINS = True
+
+#####(개중요)나중에는 CORS_ALLOW_ALL_ORIGINS = False 로 바꾸고, 
+# CORS_ALLOWED_ORIGINS 리스트에 실제 프론트엔드 주소만 넣어주세요!#####
+
+STATIC_URL = 'static/'
+FRONTEND_URL = 'http://localhost:3000'
+
+# Gmail SMTP 설정
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
